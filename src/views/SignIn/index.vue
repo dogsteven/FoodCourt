@@ -13,7 +13,7 @@ export default {
   methods: {
     signIn() {
       localStorage.setItem('account', 'ok')
-      this.$emit('set-is-signed-in', true)
+      this.$store.commit('setIsSignedIn', true)
       this.$router.replace({ path: '/menu' })
     }
   },

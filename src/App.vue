@@ -19,7 +19,7 @@
       dense
       dark
       color="#ff2400"
-      v-if="isSignedIn"
+      v-if="$store.state.isSignedIn"
     >
       <v-app-bar-nav-icon
         @click.stop="isShowDrawer = !isShowDrawer" />
@@ -30,7 +30,7 @@
     </v-app-bar>
 
     <v-content>
-      <router-view @set-is-signed-in="isSignedIn = $event"></router-view>
+      <router-view></router-view>
     </v-content>
 
     <v-bottom-navigation
@@ -39,7 +39,7 @@
       grow
       shift
       color="#ff2400"
-      v-if="isSignedIn"
+      v-if="$store.state.isSignedIn"
     >
       <v-btn
         to="/menu"
@@ -78,20 +78,19 @@ export default {
 
   created() {
     if (localStorage.getItem('account') !== null)
-      this.isSignedIn = true
+      this.$store.commit('setIsSignedIn', true)
   },
 
   methods: {
     signOut() {
       this.isShowDrawer = false
-      this.isSignedIn = false
+      this.$store.commit('setIsSignedIn', false)
       localStorage.removeItem('account')
       this.$router.replace({ name: '/signin' })
     }
   },
 
   data: () => ({
-    isSignedIn: false,
     isShowDrawer: false
   }),
 };
