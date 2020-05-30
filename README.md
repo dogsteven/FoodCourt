@@ -20,5 +20,5 @@ import ViewComponent from '../views/ViewDirectory'
 ```
 Để `ViewComponent` được load lazy thì ta thực hiện:
 ```
-```
 let ViewComponent = () => import(\*  webpackChunkName: "view_component" *\ '../views/ViewDirectory')
+```
