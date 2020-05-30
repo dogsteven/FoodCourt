@@ -12,3 +12,12 @@ $ npm run serve
 ```
 import axios from 'axios'
 ```
+7. Về icon thì ta sẽ dùng tag `v-icon`:
+```
+<v-icon>fas fs-[icon-name]</v-icon>
+```
+Trong đó `[icon-name]` là tên icon tìm kiến trong "https://fontawesome.com/icons?d=gallery&m=free" (chú ý là tìm icon free thôi nha, pro méo có tiền trả)
+Ví dụ như:
+```
+<v-icon>fas fs-home</v-icon>
+```
