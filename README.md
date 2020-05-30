@@ -1,24 +1,24 @@
-# food-court
+# Food Court Mobile App
 
-## Project setup
-```
-npm install
-```
+## Setup router
 
-### Compiles and hot-reloads for development
+Vào file `src/router/index.js`, thêm vào biến `routes` thông tin:
 ```
-npm run serve
+const routes = [
+    ...,
+    {
+        path: '/your_view_path',
+        name: 'Your view name',
+        component: ViewComponent
+    },
+    ...
+]
 ```
-
-### Compiles and minifies for production
+Để `ViewComponent` được load khi khởi động app, ta thực hiện:
 ```
-npm run build
+import ViewComponent from '../views/ViewDirectory'
 ```
-
-### Lints and fixes files
+Để `ViewComponent` được load lazy thì ta thực hiện:
 ```
-npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+let ViewComponent = () => import(\*  webpackChunkName: "view_component" *\ '../views/ViewDirectory')
