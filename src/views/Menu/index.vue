@@ -1,29 +1,17 @@
 <template>
   <v-container>
-    <v-btn
-      @click="showItemDetail"
+    <v-list
+      v-for="(value, key) in $store.state.foods"
+      :key="key"
     >
-      Click me
-    </v-btn>
-
-    <v-overlay
-      v-model="isShowItemDetail"
-    >
-      <v-btn
-        @click="isShowItemDetail = false"
-      >
-        <v-icon>fas fa-times-circle</v-icon>
-      </v-btn>
-    </v-overlay>
+      {{ value.name }}
+    </v-list>
   </v-container>
 </template>
 
 <script>
 export default {
   methods: {
-    showItemDetail() {
-      this.$router.go(-1)
-    }
   },
   data: () => ({
     isShowItemDetail: false

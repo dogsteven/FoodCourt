@@ -77,6 +77,7 @@ export default {
   name: 'App',
 
   created() {
+    this.$store.dispatch('queryFoods', 'http://localhost:5000/api/food')
     if (localStorage.getItem('account') !== null)
       this.$store.commit('setIsSignedIn', true)
   },
