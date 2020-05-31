@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-btn
-      @click="isShowItemDetail = true"
+      @click="showItemDetail"
     >
       Click me
     </v-btn>
@@ -20,6 +20,11 @@
 
 <script>
 export default {
+  methods: {
+    showItemDetail() {
+      this.$router.go(-1)
+    }
+  },
   data: () => ({
     isShowItemDetail: false
   })

@@ -1,41 +1,41 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import SignInView from '../views/SignIn'
-import SignUpView from '../views/SignUp'
+import SignInView from '../views/sign-in'
+import SignUpView from '../views/sign-up'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/signin',
+    path: '/sign-in',
     name: 'Sign In',
     component: SignInView
   },
   {
-    path: '/signup',
+    path: '/sign-up',
     name: 'Sign Up',
     component: SignUpView
   },
   {
     path: '/menu',
     name: 'Menu',
-    component: () => import(/* webpackChunkName: "menu" */ '../views/Menu')
+    component: () => import(/* webpackChunkName: "menu" */ '../views/menu')
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import(/* webpackChunkName: "cart" */'../views/Cart')
+    component: () => import(/* webpackChunkName: "cart" */'../views/cart')
   },
   {
     path: '/notifications',
     name: 'Notifications',
-    component: () => import(/* webpackChunkName: "notifications" */ '../views/Notifications')
+    component: () => import(/* webpackChunkName: "notifications" */ '../views/notifications')
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "profile" */ '../views/Profile')
+    component: () => import(/* webpackChunkName: "profile" */ '../views/profile')
   }
 ]
 
@@ -46,13 +46,13 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let publicPaths = ['/signin', '/signup']
+  let publicPaths = ['/sign-in', '/sign-up']
   let isSignedIn = localStorage.getItem('account') !== null
   let isAtPublicPath = publicPaths.includes(to.path)
   if (isAtPublicPath && isSignedIn)
     next({ path: '/menu' })
   else if (!isAtPublicPath && !isSignedIn)
-    next({ path: '/signin' })
+    next({ path: '/sign-in' })
   else
     next()
 })

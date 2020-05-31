@@ -86,7 +86,7 @@ export default {
       this.isShowDrawer = false
       this.$store.commit('setIsSignedIn', false)
       localStorage.removeItem('account')
-      this.$router.replace({ name: '/signin' })
+      this.$router.replace({ name: '/sign-in' })
     }
   },
 
