@@ -8,9 +8,13 @@
 ```
 $ npm run serve
 ```
-6. Để gọi http request, sử dụng `http` trong `src`:
+6. Để gọi http request đến server `food court`, sử dụng `http` trong `src`:
 ```
 import http from 'path/to/http'
+
+http.get('api/food').then((reponse) => {
+    // callback
+})
 ```
 7. Về icon thì ta sẽ dùng tag `v-icon`:
 ```
