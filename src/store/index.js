@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
+import http from '../http'
 
 Vue.use(Vuex)
 
@@ -18,8 +18,8 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    queryFoods({ commit }, url) {
-      axios.get(url).then((response) => {
+    queryFoods({ commit }, route) {
+      http.get(route).then((response) => {
         commit('setFoods', response.data)
       }).catch((error) => {
         alert(error)

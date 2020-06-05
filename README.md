@@ -8,9 +8,9 @@
 ```
 $ npm run serve
 ```
-6. Để gọi http request, sử dụng `axios`:
+6. Để gọi http request, sử dụng `http` trong `src`:
 ```
-import axios from 'axios'
+import http from 'path/to/http'
 ```
 7. Về icon thì ta sẽ dùng tag `v-icon`:
 ```

@@ -16,8 +16,8 @@
     <v-app-bar
       app
       fixed
-      dense
-      dark
+      shift
+      grow
       color="#ff2400"
       v-if="$store.state.isSignedIn"
     >
@@ -29,8 +29,8 @@
       </v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
-      <router-view></router-view>
+    <v-content >
+      <router-view />
     </v-content>
 
     <v-bottom-navigation
@@ -77,7 +77,7 @@ export default {
   name: 'App',
 
   created() {
-    this.$store.dispatch('queryFoods', 'http://localhost:5000/api/food')
+    this.$store.dispatch('queryFoods', 'api/food')
     if (localStorage.getItem('account') !== null)
       this.$store.commit('setIsSignedIn', true)
   },
@@ -98,10 +98,5 @@ export default {
 </script>
 
 <style>
-.v-bottom-navigation--fixed {
-  position: fixed !important;
-}
-.v-item-group.v-bottom-navigation .v-btn {
-  height: inherit !important;
-}
+
 </style>
