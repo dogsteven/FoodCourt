@@ -1,0 +1,157 @@
+<template>
+  <v-container align="center">
+    <v-row justify="space-around">
+      <v-switch v-model="breakfast" class="ma-2" label="Breakfast"></v-switch>
+      <v-switch v-model="lunch" class="ma-2" label="Lunch"></v-switch>
+      <v-switch v-model="dinner" class="ma-2" label="Dinner"></v-switch>
+      <v-switch v-model="drink" class="ma-2" label="Drink"></v-switch>
+      <v-list :dense="dense" :three-line="threeLine" :nav="nav" :avatar="avatar" :rounded="rounded">
+      <v-card>
+        <v-subheader>TODAY MENU</v-subheader>
+        <v-list-item-group v-model="item" color="primary">
+          <v-list-item v-for="(item, i) in items" :key="i" :inactive="inactive">
+            <v-list-item-avatar v-if="avatar">
+              <v-img :src="item.picture"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title v-html="item.name"><b color="gray" v-html="item.quantity"></b></v-list-item-title>
+              <v-list-item-subtitle v-html="item.description"></v-list-item-subtitle>
+              <v-list-item-title v-html="item.price"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-card>
+      </v-list>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    item: 5,
+    items: [
+        {
+          categories: ["món chính", "món ăn sáng"],
+          description: "Đây là món bò kho bánh mì!",
+          name: "Bò kho bánh mì",
+          picture:
+            "http://images1.baoninhthuan.com.vn/CMSImage/Resources/Uploaded/tbtdaduyet/bo-kho-banh-mi-2014-12-05-18-54.jpg",
+          price: "20000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món chính", "món ăn sáng"],
+          description: "Đây là món hủ tiếu gia truyền được chế biến từ cám heo",
+          name: "Hủ tiếu",
+          picture:
+            "https://media.cooky.vn/recipe/g4/36783/s800x500/cooky-recipe-cover-r36783.jpg",
+          price: "22000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món ăn nhanh"],
+          description: "Món Hambergur đắt cắt cổ!",
+          name: "Hamburger",
+          picture:
+            "https://www.simplyhappyfoodie.com/wp-content/uploads/2018/04/instant-pot-hamburgers-3.jpg",
+          price: "200000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món ăn nhanh"],
+          description: "Món mì trộn công thức đặc biệt thơm ngon béo ngậy!",
+          name: "Mì trộn",
+          picture:
+            "https://vncooking.com/files/cuisine/2019/01/25/mi-tron-muoi-ot-cay-nong-erc6.jpg",
+          price: "15000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món ăn nhanh"],
+          description: "Bánh giò truyền thống!",
+          name: "Bánh giò",
+          picture:
+            "https://beptruong.edu.vn/wp-content/uploads/2016/01/mon-banh-gio.jpg",
+          price: "11000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món tráng miệng", "món chính"],
+          description: "Đây là bánh trung thu trứng muối!",
+          name: "Bánh trung thu",
+          picture:
+            "https://cdn.eva.vn/upload/3-2019/images/2019-08-14/moi-lam-banh-trung-thu-hien-dai-2-nam-da-dep-the-nay-8x-con-mo-duoc-lop-day-hoc-39020892_869523606574753_4848377822114217984_n-1565755347-875-width960height720.jpg",
+          price: "60000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món chính", "món ăn sáng"],
+          description: "Cơm gà xối mỡ giòn rụm bên ngoài, mềm mại bên trong!",
+          name: "Cơm gà xối mỡ",
+          picture:
+            "https://cdn.huongnghiepaau.com/wp-content/uploads/2018/07/com-ga-xoi-mo.jpg",
+          price: "25000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món chính", "món ăn sáng"],
+          description: "Phở bò gia truyền Hoàng Gia!",
+          name: "Phở bò",
+          picture:
+            "https://media.cooky.vn/recipe/g1/4573/s480x480/recipe4573-prepare-step3-636422898648914257.jpg",
+          price: "22000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món chính", "món ăn sáng"],
+          description: "Món cà ri bò thơm ngậy",
+          name: "Cà ri bò",
+          picture:
+            "https://media.cooky.vn/recipe/g3/25296/s480x480/recipe25296-prepare-step5-636486908431470841.jpg",
+          price: "25000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món chính", "món ăn sáng"],
+          description: "Cơm tấm sài gòn đậm hương vị đường phố Việt Nam!",
+          name: "Cơm tấm",
+          picture:
+            "http://image.vinanet.vn/zoom/640/Uploaded/huonglan/2019_06_26/26061_EQTV.jpg",
+          price: "25000",
+          quantity: 0,
+          vendorID: 0
+        },
+        {
+          categories: ["món chính"],
+          description: "Mì quảng công thức Quảng Nôm!",
+          name: "Mì quảng",
+          picture:
+            "https://khomay3a.com/userfiles/image/mon-ngon-moi-ngay/cach-nau-nuoc-leo-mi-quang-001.jpg",
+          price: "20000",
+          quantity: 0,
+          vendorID: 0
+        }
+      
+    ],
+    dense: true,
+    threeLine: true,
+    nav: true,
+    avatar: true,
+    rounded: true,
+    breakfast: false,
+    lunch: false,
+    dinner: false,
+    drink: false
+  })
+};
+</script>
