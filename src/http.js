@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default {
   configuration: {
-    managementURL: 'http://localhost:5000'
+    managementURL: 'http://localhost'
   },
 
   get(route, config = null) {
