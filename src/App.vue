@@ -23,10 +23,13 @@
     >
       <v-app-bar-nav-icon
         @click.stop="isShowDrawer = !isShowDrawer" />
-
-      <v-toolbar-title>
-        {{ $route.name }}
-      </v-toolbar-title>
+      <v-container
+        class="text-center"
+      >
+        <v-toolbar-title>
+          {{ $route.name }}
+        </v-toolbar-title>
+      </v-container>
     </v-app-bar>
 
     <v-content >
@@ -56,10 +59,10 @@
       </v-btn>
 
       <v-btn
-        to="/notifications"
+        to="/order"
       >
-        <span>Notification</span>
-        <v-icon>fas fa-bell</v-icon>
+        <span>Order</span>
+        <v-icon>fas fa-clipboard</v-icon>
       </v-btn>
 
       <v-btn
