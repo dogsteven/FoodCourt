@@ -26,7 +26,7 @@
                 </v-row>
               </v-col>
               <v-col class="text-right">
-                  <v-btn flat color="orange">Add to Cart</v-btn>
+                  <v-btn flat color="orange">Add to cart</v-btn>
               </v-col>
             </v-list-item>
           </v-list-item-group>
