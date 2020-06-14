@@ -1,32 +1,38 @@
 <template>
   <v-container align="center">
     <v-row justify="space-around">
-      <v-switch v-model="cate1" class="ma-2" label="Mon Chinh"></v-switch>
-      <v-switch v-model="cate2" class="ma-2" label="Mon an nhanh"></v-switch>
-      <v-switch v-model="cate3" class="ma-2" label="Mon an sang"></v-switch>
-      <v-switch v-model="cate3" class="ma-2" label="Mon trang mien"></v-switch>
-      <v-list :dense="dense" :three-line="threeLine" :nav="nav" :avatar="avatar" :rounded="rounded">
-      <v-card>
-        <v-subheader>TODAY MENU</v-subheader>
-        <v-list-item-group v-model="item" color="primary">
-          <v-list-item v-for="(item, i) in items" :key="i" :inactive="inactive">
-            <v-list-item-avatar v-if="avatar">
-              <v-img :src="item.picture"></v-img>
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title v-html="item.name"></v-list-item-title>
-              <v-list-item-subtitle v-html="item.description"></v-list-item-subtitle>
-              <v-list-item-title v-html="item.price"></v-list-item-title>
-              <p> {{item.categories}} </p>
-              <div id>
-                <button v-on:click="add">Add to Cart</button>
-                <p>The button above has been clicked {{ counter }} times.</p>
-              </div>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-card> 
-      </v-list>
+      <v-switch v-model="cate1" class="ma-2" label="Món chính"></v-switch>
+      <v-switch v-model="cate2" class="ma-2" label="Món ăn nhanh"></v-switch>
+      <v-switch v-model="cate3" class="ma-2" label="Món ăn sáng"></v-switch>
+      <v-switch v-model="cate3" class="ma-2" label="Món tráng miệng"></v-switch>
+      <v-container>
+        <v-list :dense="dense" :three-line="threeLine" :nav="nav" :avatar="avatar" :rounded="rounded">
+        <v-card>
+          <v-card-actions class="justify-center">
+            <v-header flat color="orange">TODAY MENU</v-header>
+          </v-card-actions>
+          <v-list-item-group v-model="item" color="primary">
+            <v-list-item v-for="(item, i) in items" :key="i" :inactive="inactive">
+              <v-col>
+                <v-row>
+                  <v-list-item-avatar v-if="avatar">
+                    <v-img :src="item.picture"></v-img>
+                  </v-list-item-avatar>    
+                  <v-list-item-content>
+                    <v-list-item-title v-html="item.name"></v-list-item-title>
+                    <v-list-item-subtitle v-html="item.description"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html="item.price"> VND</v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-row>
+              </v-col>
+              <v-col class="text-right">
+                  <v-btn flat color="orange">Add to Cart</v-btn>
+              </v-col>
+            </v-list-item>
+          </v-list-item-group>
+        </v-card> 
+        </v-list>
+      </v-container>
     </v-row>
   </v-container>
 </template>
