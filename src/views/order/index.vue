@@ -6,23 +6,19 @@
 
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in items" :key="item.tab">
-        <v-card class="my-3">
+        <v-card class="mx-auto">
           <v-list-item>
-            <v-list-item-avatar color="grey"></v-list-item-avatar>
+            <v-list-item-avatar>
+              <img
+                src="http://images1.baoninhthuan.com.vn/CMSImage/Resources/Uploaded/tbtdaduyet/bo-kho-banh-mi-2014-12-05-18-54.jpg"
+              />
+            </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title class="headline">Our Changing Planet</v-list-item-title>
-              <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
+              <v-list-item-title class="headline">Bò kho bánh mì</v-list-item-title>
+              <v-list-item-subtitle>Đây là món bò kho bánh mì!</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-        </v-card>
-        <v-card class="my-3">
-          <v-list-item>
-            <v-list-item-avatar color="grey"></v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="headline">Our Changing Planet</v-list-item-title>
-              <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+          
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -38,6 +34,5 @@ export default {
       items: [{ tab: "Tracking Order" }, { tab: "Done Order" }]
     };
   }
-  
 };
 </script>
