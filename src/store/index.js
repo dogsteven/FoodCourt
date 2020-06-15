@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: () => ({
     isSignedIn: false,
-    foods: {}
+    foods: {},
+    cartItems: []
   }),
   mutations: {
     setIsSignedIn(state, value) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     setFoods(state, value) {
       state.foods = value
+    },
+    setCartItems(state, value) {
+      state.cartItems = value
     }
   },
   actions: {

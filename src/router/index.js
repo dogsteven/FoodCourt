@@ -37,11 +37,11 @@ const routes = [
     name: 'Profile',
     component: () => import(/* webpackChunkName: "profile" */ '../views/profile')
   },
-  {
-    path: '/item-detail/:id',
-    name: 'Item Detail',
-    component: () => import(/* webpackChunkName: "item-detail" */ '../views/menu/item-detail.vue')
-  },
+  // {
+  //   path: '/item-detail/:id',
+  //   name: 'Item Detail',
+  //   component: () => import(/* webpackChunkName: "item-detail" */ '../views/menu/item-detail.vue')
+  // },
   {
     path: '*',
     redirect: '/menu'
