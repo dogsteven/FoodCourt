@@ -15,6 +15,9 @@ export default new Vuex.Store({
     },
     setFoods(state, value) {
       state.foods = value
+    },
+    pushFoodItem(state, value) {
+      state.foods.push(value)
     }
   },
   actions: {

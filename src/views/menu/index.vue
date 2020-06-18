@@ -14,11 +14,7 @@
         column
         multiple
       >
-        <v-chip filter outlined>Món chính</v-chip>
-        <v-chip filter outlined>Món tráng miệng</v-chip>
-        <v-chip filter outlined>Món ăn sáng</v-chip>
-        <v-chip filter outlined>Món ăn nhanh</v-chip>
-        <v-chip filter outlined>Đồ uống</v-chip>
+        <v-chip v-for="tag in tags" :key=tag filter outlined>{{tag}}</v-chip>
       </v-chip-group>
     </v-card-text> 
   </v-card> 
@@ -29,7 +25,10 @@
             <v-header flat color="orange">TODAY MENU</v-header>
           </v-card-actions>
           <v-list-item-group v-model="item" color="primary">
-            <v-list-item v-for="(item, i) in items" :key="i" :inactive="inactive">
+            <v-list-item v-for="(item, key) in $store.state.foods" 
+              :key="key" 
+              :inactive="inactive"
+              :to="'/item-detail/' + key">
               <v-col>
                 <v-row>
                   <v-col>
@@ -187,8 +186,7 @@ export default {
     lunch: false,
     dinner: false,
     drink: false,
-
-
+    tags : ["Món chính", "Món tráng miệng", "Món ăn sáng", "Món ăn nhanh", "Đồ uống"],
     counter : 0
   }),
   methods: {
