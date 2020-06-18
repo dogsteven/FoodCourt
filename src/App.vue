@@ -42,13 +42,11 @@
 <script>
 export default {
   name: "App",
-
   created() {
     this.$store.dispatch("queryFoods", "api/food");
     if (localStorage.getItem("account") !== null)
       this.$store.commit("setIsSignedIn", true);
   },
-
   methods: {
     signOut() {
       this.isShowDrawer = false;
@@ -57,7 +55,6 @@ export default {
       this.$router.replace({ name: "/sign-in" });
     }
   },
-
   data: () => ({
     isShowDrawer: false
   })

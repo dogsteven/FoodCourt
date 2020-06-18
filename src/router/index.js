@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: '/detail',
-    name: 'Detail',
+    name: 'Order',
     component: () => import(/* webpackChunkName: "profile" */ '../views/detail')
   },
   {
