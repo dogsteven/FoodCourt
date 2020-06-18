@@ -38,31 +38,3 @@
     </v-bottom-navigation>
   </v-app>
 </template>
-
-<script>
-export default {
-  name: "App",
-
-  created() {
-    this.$store.dispatch("queryFoods", "api/food");
-    if (localStorage.getItem("account") !== null)
-      this.$store.commit("setIsSignedIn", true);
-  },
-
-  methods: {
-    signOut() {
-      this.isShowDrawer = false;
-      this.$store.commit("setIsSignedIn", false);
-      localStorage.removeItem("account");
-      this.$router.replace({ name: "/sign-in" });
-    }
-  },
-
-  data: () => ({
-    isShowDrawer: false
-  })
-};
-</script>
-
-<style>
-</style>

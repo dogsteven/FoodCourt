@@ -1,28 +1,30 @@
 <template>
-  <v-container>
-    <v-tabs v-model="tab" grow>
+  <v-card>
+    <v-tabs v-model="tab" background-color="#b38867" grow dark>
       <v-tab v-for="item in items" :key="item.tab">{{ item.tab }}</v-tab>
     </v-tabs>
 
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="item in items" :key="item.tab">
-        <v-card class="mx-auto">
+        <v-card class="my-3">
           <v-list-item>
             <v-list-item-avatar>
-              <img
-                src="http://images1.baoninhthuan.com.vn/CMSImage/Resources/Uploaded/tbtdaduyet/bo-kho-banh-mi-2014-12-05-18-54.jpg"
-              />
+              <img src="https://media.cooky.vn/recipe/g5/44500/s640/cooky-recipe-cover-r44500.jpg" />
             </v-list-item-avatar>
+
             <v-list-item-content>
-              <v-list-item-title class="headline">Bò kho bánh mì</v-list-item-title>
-              <v-list-item-subtitle>Đây là món bò kho bánh mì!</v-list-item-subtitle>
+              <v-list-item-title class="headline">Hủ tiếu</v-list-item-title>
+              <v-list-item-subtitle>22,000 VND</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn text color="#626d71" to="/detail">Xem chi tiết</v-btn>
+          </v-card-actions>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-  </v-container>
+  </v-card>
 </template>
 
 
