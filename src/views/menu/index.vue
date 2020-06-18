@@ -16,8 +16,8 @@
       >
         <v-chip filter outlined>Món chính</v-chip>
         <v-chip filter outlined>Món tráng miệng</v-chip>
-        <v-chip filter outlined>Món ăn sánge</v-chip>
-        <v-chip filter outlined>Món ăn nhanhk</v-chip>
+        <v-chip filter outlined>Món ăn sáng</v-chip>
+        <v-chip filter outlined>Món ăn nhanh</v-chip>
         <v-chip filter outlined>Đồ uống</v-chip>
       </v-chip-group>
     </v-card-text> 
