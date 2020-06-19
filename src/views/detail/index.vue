@@ -1,20 +1,29 @@
 <template>
-  <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
-    <v-timeline-item
-      v-for="(item, i) in items"
-      :key="i"
-      :color="item.color"
-      :icon="item.icon"
-      fill-dot
-    >
-      <v-card :color="item.color" dark>
-        <v-card-title class="title">Lorem Ipsum Dolor</v-card-title>
-        <v-card-text class="white text--primary">
-          <p>Lorem ipsum dolor sit amet, no nam oblique veritus. Commune scaevola imperdiet nec ut, sed euismod convenire principes at. Est et nobis iisque percipit, an vim zril disputando voluptatibus, vix an salutandi sententiae.</p>
-        </v-card-text>
-      </v-card>
-    </v-timeline-item>
-  </v-timeline>
+  <v-card>
+    <v-tabs v-model="tab" background-color="#b38867" dark grow>
+      <v-tab>Detail</v-tab>
+    </v-tabs>
+
+    <v-tabs-items v-model="tab">
+      
+      <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
+        <v-timeline-item
+          v-for="(item, i) in items"
+          :key="i"
+          :color="item.color"
+          :icon="item.icon"
+          fill-dot
+        >
+          <v-card :color="item.color" dark>
+            <v-card-title class="title">{{item.text}}</v-card-title>
+            <v-card-text>
+              {{item.subtext}}
+            </v-card-text>
+          </v-card>
+        </v-timeline-item>
+      </v-timeline>
+    </v-tabs-items>
+  </v-card>
 </template>
 
 
@@ -24,15 +33,21 @@ export default {
     items: [
       {
         color: "red lighten-2",
-        icon: "fas fa-clock"
+        icon: "fas fa-clock",
+        text: "Nhận",
+        subtext: "09.10 AM, 14 June 2020"
       },
       {
         color: "purple darken-1",
-        icon: "fas fa-utensils"
+        icon: "fas fa-utensils",
+        text: "Chuẩn bị",
+        subtext: "09.10 AM, 14 June 2020"
       },
       {
         color: "green lighten-1",
-        icon: "fas fa-check"
+        icon: "fas fa-check",
+        text: "Hoàn thành",
+        subtext: "Sẽ xong trong 30 phút"
       }
     ]
   })

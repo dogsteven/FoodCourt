@@ -14,7 +14,10 @@
 
             <v-list-item-content>
               <v-list-item-title class="headline">Hủ tiếu</v-list-item-title>
-              <v-list-item-subtitle>22,000 VND</v-list-item-subtitle>
+              <v-list-item-subtitle>
+                22,000 VND
+                <span class="float-right red--text">Số lượng: 1</span>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <v-card-actions>
