@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-tabs v-model="tab" background-color="#b38867" grow dark>
+    <v-tabs v-model="tab" background-color="#80bd9e" grow dark>
       <v-tab v-for="item in items" :key="item.tab">{{ item.tab }}</v-tab>
     </v-tabs>
 
@@ -16,13 +16,13 @@
               <v-list-item-title class="headline">Hủ tiếu</v-list-item-title>
               <v-list-item-subtitle>
                 22,000 VND
-                <span class="float-right red--text">Số lượng: 1</span>
+                <span class="float-right red--text text--accent-1">Số lượng: 1</span>
               </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="#626d71" to="/detail">Xem chi tiết</v-btn>
+            <v-btn text color="#80bd9e" to="/detail">Xem chi tiết</v-btn>
           </v-card-actions>
         </v-card>
       </v-tab-item>

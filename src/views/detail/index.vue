@@ -5,7 +5,6 @@
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
         <v-timeline-item
           v-for="(item, i) in items"
@@ -16,9 +15,7 @@
         >
           <v-card :color="item.color" dark>
             <v-card-title class="title">{{item.text}}</v-card-title>
-            <v-card-text>
-              {{item.subtext}}
-            </v-card-text>
+            <v-card-text>{{item.subtext}}</v-card-text>
           </v-card>
         </v-timeline-item>
       </v-timeline>
