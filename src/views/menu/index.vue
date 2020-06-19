@@ -57,8 +57,6 @@
   </v-container>
 </template>
 
-
-
 <script>
 
 export default {
@@ -193,6 +191,7 @@ export default {
     addToCart: function () {
       this.counter += 1
     }
+    // https://aqueous-harbor-47765.herokuapp.com/api/test/database/Food
   }
 };
 </script>
