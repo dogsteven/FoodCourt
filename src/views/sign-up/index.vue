@@ -5,7 +5,6 @@
 
       <v-card-title>
         <v-tabs color="brown" fixed-tabs v-model="tab">
-          <v-tab>Sign In</v-tab>
           <v-tab>Sign Up</v-tab>
         </v-tabs>
       </v-card-title>
