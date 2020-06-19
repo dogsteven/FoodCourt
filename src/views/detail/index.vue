@@ -5,6 +5,11 @@
     </v-tabs>
 
     <v-tabs-items v-model="tab">
+      <v-card max-width="344" class="mx-auto">
+        <v-img src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg" height="194"></v-img>
+
+        <v-card-text>Visit ten places on our planet that are undergoing the biggest changes today.</v-card-text>
+      </v-card>
       <v-timeline align-top :dense="$vuetify.breakpoint.smAndDown">
         <v-timeline-item
           v-for="(item, i) in items"
