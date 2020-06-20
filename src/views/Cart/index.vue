@@ -2,38 +2,29 @@
 <v-container>
   <v-list two-line>
     <v-container>
-      <v-list-item v-for="(item, index) in items" :key="item.id">
-        <v-btn @click="remove(index)" icon ripple  class="my-9"><v-icon color="red lighten-1" x-small> mdi-delete </v-icon></v-btn> 
-            <v-list-item-avatar size="80">
+      <v-card v-for="(item) in items" :key="item.id">
+          <v-row>
+            <v-avatar size="80" rounded>
               <v-img :src="item.img"></v-img>
-            </v-list-item-avatar>
-
-            <v-list-item-content>
-              <v-list-item-title >{{item.title}}</v-list-item-title>
-              <v-list-item-subtitle>{{item.price}}</v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-list-item-action height="200">
+            </v-avatar>
+            <v-col>
+              <v-card-title> {{item.title}} </v-card-title>
+              <v-card-subtitle> {{item.price}} </v-card-subtitle>
               <v-row>
-                <v-btn @click="update(item.id, item.qty - 1)" small class="my-auto"> <v-icon x-small> mdi-minus </v-icon> </v-btn>
+                <v-card-actions>
+                <v-btn @click="update(item.id, item.qty - 1)" small class=""> <v-icon x-small> mdi-minus </v-icon> </v-btn>
                 <v-content class="mx-3"> {{item.qty}} </v-content>
-                <v-btn @click="update(item.id, item.qty + 1)" small class="my-auto mr-0"> <v-icon x-small> mdi-plus </v-icon> </v-btn>
-                
-            </v-row>
-            </v-list-item-action>
-            
-      </v-list-item>
+                <v-btn @click="update(item.id, item.qty + 1)" small class=""> <v-icon x-small> mdi-plus </v-icon> </v-btn>
+                </v-card-actions>
+              </v-row>
+            </v-col>
+            <v-card-actions>
+               <v-btn @click="remove(index)" icon ripple  class="my-9"><v-icon color="red lighten-1" x-small> mdi-delete </v-icon></v-btn> 
+            </v-card-actions>
+          </v-row>
+      </v-card>
       </v-container>
   </v-list>
-    <!-- <v-bottom-navigation
-      absolute
-      fixed
-      color="white"
-      horizontal
-    >
-      <v-content dark> Total </v-content>
-      <v-btn x-large color="success" dark class="mx-auto"> Checkout </v-btn>
-    </v-bottom-navigation> -->
     <v-card id="bottomCard">
       <v-row class="mt-0">
         <v-card-title class="ml-5"> Tổng tiền
@@ -99,3 +90,4 @@ export default {
   border: 0;
 }
 </style>
+
