@@ -1,31 +1,35 @@
 <template>
 <v-container>
-  <v-list two-line>
+  <v-list three-line>
     <v-container>
-      <v-card v-for="(item) in items" :key="item.id">
+      <v-card v-for="(item) in items" :key="item.id" class="border-item">
           <v-row>
-            <v-avatar size="80" rounded>
-              <v-img :src="item.img"></v-img>
-            </v-avatar>
-            <v-col>
-              <v-card-title> {{item.title}} </v-card-title>
+            <v-col cols="4">
+              <v-img id="itemImg"
+              height="100"
+              width="100"
+              class="my-2 mx-4"
+              :src="item.img"> </v-img>
+            </v-col>
+            <v-col cols="8">
+                <v-card-title> {{item.title}} 
+                <v-btn @click="remove(index)" icon ripple  class="ml-6"><v-icon color="red lighten-1" x-small> mdi-delete </v-icon></v-btn> 
+                </v-card-title>
               <v-card-subtitle> {{item.price}} </v-card-subtitle>
-              <v-row>
-                <v-card-actions>
-                <v-btn @click="update(item.id, item.qty - 1)" small class=""> <v-icon x-small> mdi-minus </v-icon> </v-btn>
-                <v-content class="mx-3"> {{item.qty}} </v-content>
-                <v-btn @click="update(item.id, item.qty + 1)" small class=""> <v-icon x-small> mdi-plus </v-icon> </v-btn>
-                </v-card-actions>
+              <v-row class="mx-3">
+                <v-btn @click="update(item.id, item.qty - 1)" small class="button"> <v-icon x-small> mdi-minus </v-icon> </v-btn>
+                <v-text class="mx-3"> {{item.qty}} </v-text>
+                <v-btn @click="update(item.id, item.qty + 1)" small class="button"> <v-icon x-small> mdi-plus </v-icon> </v-btn>
               </v-row>
             </v-col>
-            <v-card-actions>
-               <v-btn @click="remove(index)" icon ripple  class="my-9"><v-icon color="red lighten-1" x-small> mdi-delete </v-icon></v-btn> 
-            </v-card-actions>
           </v-row>
       </v-card>
-      </v-container>
+    </v-container>
   </v-list>
     <v-card id="bottomCard">
+      <!-- <v-card-actions>
+                  
+                </v-card-actions> -->
       <v-row class="mt-0">
         <v-card-title class="ml-5"> Tổng tiền
         </v-card-title>
@@ -88,6 +92,23 @@ export default {
   left: 0px;
   bottom: 57px;
   border: 0;
+}
+#itemImg {
+  border-radius: 50%;
+}
+#red-background {
+  background: red;
+}
+#blue {
+  background: blue;
+}
+#yellow {
+  background: yellow;
+}
+.border-item {
+  border: 1px black;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 </style>
 
