@@ -2,6 +2,16 @@
   <v-container
     id="menu-container"
   >
+  <v-chip-group
+        multiple
+  >
+    <v-chip filter outlined
+      v-for="category in this.categories"
+      :key=category
+      >
+      {{category}}
+    </v-chip>
+  </v-chip-group>
     <v-card
       max-width="700"
       class="mx-auto"
@@ -14,12 +24,12 @@
           elevation="1"
           class="ma-3"
         >
+          <div v-if="addCategory(item.categories)"></div>
           <v-img
             :src="item.photo"
             :lazy-src="item.photo"      
             max-height="130"
           >
-            
           </v-img>
           <v-card-title
             @click="selectedItem === index ? selectedItem = null : selectedItem = index"
@@ -65,10 +75,19 @@ export default {
           quantity: 1
         })
       }
+    },
+    addCategory(itemCategories) {
+      console.log(itemCategories)
+      for (var category in itemCategories) {
+        if (!(this.categories.includes(category))) {
+          this.categories.push(category)
+        }
+      }
     }
   },
   data: () => ({
-    selectedItem: null
+    selectedItem: null,
+    categories: []
   })
 }
 </script>
