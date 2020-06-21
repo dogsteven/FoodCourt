@@ -65,6 +65,16 @@
 </template>
 
 <script>
+Array.prototype.unique = function() {
+    var a = this.concat();
+    for(var i=0; i<a.length; ++i) {
+        for(var j=i+1; j<a.length; ++j) {
+            if(a[i] === a[j])
+                a.splice(j--, 1);
+        }
+    }
+    return a;
+}
 export default {
   methods: {
     addItemToCart(index) {
@@ -77,12 +87,8 @@ export default {
       }
     },
     addCategory(itemCategories) {
-      console.log(itemCategories)
-      for (var category in itemCategories) {
-        if (!(this.categories.includes(category))) {
-          this.categories.push(category)
-        }
-      }
+      this.categories = this.categories.concat(itemCategories).unique()
+      return false
     }
   },
   data: () => ({
