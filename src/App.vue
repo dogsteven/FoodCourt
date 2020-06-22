@@ -40,12 +40,45 @@
 </template>
 
 <script>
+import http from './http'
 export default {
   name: "App",
+  signout() {
+      localStorage.removeItem('customer')
+      let emptyInfo = {
+        id: null,
+        info: {
+          username: null,
+          firstname: null,
+          lastname: null,
+          email: null
+        }
+      }
+      this.$store.commit('setCustomer', emptyInfo)
+      this.$router.go('/sign-in-up')
+    },
   created() {
-    this.$store.dispatch("queryFoods", "api/food");
-    if (localStorage.getItem("account") !== null)
-      this.$store.commit("setIsSignedIn", true);
+    console.log("in here")
+    let customer = JSON.parse(localStorage.getItem('customer'))
+    if (customer !== null) {
+      this.$store.commit('setCustomer', customer)
+    }
+    http.server.get('/food-item').then((response) => {
+      let data = response.data
+      if (data != null) {
+        for (let key in data) {
+          this.$store.commit('pushFoodItem', {
+            id: key,
+            name: data[key].name,
+            price: data[key].price,
+            quantity: data[key].quantity,
+            categories: data[key].categories,
+            description: data[key].description,
+            photo: data[key].photo
+          })
+        }
+      }
+    })
   },
   methods: {
     signOut() {
