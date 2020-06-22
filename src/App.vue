@@ -11,7 +11,7 @@
       <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-content>
+    <v-content >
       <router-view />
     </v-content>
 
@@ -43,26 +43,12 @@
 import http from './http'
 export default {
   name: "App",
-  signout() {
-      localStorage.removeItem('customer')
-      let emptyInfo = {
-        id: null,
-        info: {
-          username: null,
-          firstname: null,
-          lastname: null,
-          email: null
-        }
-      }
-      this.$store.commit('setCustomer', emptyInfo)
-      this.$router.go('/sign-in-up')
-    },
+  
   created() {
-    console.log("in here")
-    let customer = JSON.parse(localStorage.getItem('customer'))
-    if (customer !== null) {
-      this.$store.commit('setCustomer', customer)
-    }
+    // let customer = JSON.parse(localStorage.getItem('customer'))
+    // if (customer !== null) {
+    //   this.$store.commit('setCustomer', customer)
+    // }
     http.server.get('/food-item').then((response) => {
       let data = response.data
       if (data != null) {
@@ -81,7 +67,32 @@ export default {
     })
   },
   methods: {
+    signout() {
+      localStorage.removeItem('customer')
+      let emptyInfo = {
+        id: null,
+        info: {
+          username: null,
+          firstname: null,
+          lastname: null,
+          email: null
+        }
+      }
+      this.$store.commit('setCustomer', emptyInfo)
+      this.$router.go('/sign-in')
+    },
     signOut() {
+      localStorage.removeItem('customer')
+      let emptyInfo = {
+        id: null,
+        info: {
+          username: null,
+          firstname: null,
+          lastname: null,
+          email: null
+        }
+      }
+      this.$store.commit('setCustomer', emptyInfo)
       this.isShowDrawer = false;
       this.$store.commit("setIsSignedIn", false);
       localStorage.removeItem("account");
