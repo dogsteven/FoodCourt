@@ -56,12 +56,6 @@
 import http from "../../http";
 export default {
   methods: {
-    signIn() {
-      localStorage.setItem("account", "ok");
-      this.$store.commit("setIsSignedIn", true);
-      this.$router.replace({ path: "/menu" });
-    },
-
     isEmail(value) {
       const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return pattern.test(value) || value.length === 0;
@@ -80,16 +74,19 @@ export default {
       let lastname = this.lastname;
       let email = this.email;
       if (this.tab === 0) {
-        http.server
-          .get("/customer/" + username + "/" + password)
-          .then(response => {
-            let data = response.data;
-            if (data !== null) {
-              localStorage.setItem("customer", JSON.stringify(data));
-              this.$store.commit("setCustomer", data);
-              this.$router.go("/menu");
-            } else this.isSignInFailed = true;
-          });
+        // http.server
+        //   .get("/customer/" + username + "/" + password)
+        //   .then(response => {
+        //     let data = response.data;
+        //     if (data !== null) {
+        //       localStorage.setItem("customer", JSON.stringify(data));
+        //       this.$store.commit("setCustomer", data);
+        //       this.$router.go("/menu");
+        //     } else this.isSignInFailed = true;
+        //   });
+        localStorage.setItem("account", "ok");
+        this.$store.commit("setIsSignedIn", true);
+        this.$router.replace({ path: "/menu" });
       } else {
         if (this.isEmail(email) === false) return;
         let dataBody = {

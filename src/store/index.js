@@ -29,9 +29,4 @@ export default new Vuex.Store({
   modules: {
 
   },
-  mounted () {
-    axios
-      .get('https://aqueous-harbor-47765.herokuapp.com/api/test/database/Food?fbclid=IwAR2jWZxsYQwGpxw27-v3fNys9ZtBXV1HG74ZwB97CQuf3OagJLjOq6rrClI')
-      .then(response => (this.info = response))
-  }
 })
