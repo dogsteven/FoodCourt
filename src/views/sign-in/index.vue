@@ -68,7 +68,7 @@ export default {
       this.$router.replace({ path: "/menu" });
     },
     SignUp() {
-       this.$router.replace({ path: "/sign-up" });
+      this.$router.replace({ path: "/sign-up" });
     }
   },
   data: () => ({

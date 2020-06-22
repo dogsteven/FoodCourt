@@ -5,9 +5,7 @@
 
       <v-card-title>
         <v-tabs color="brown" fixed-tabs v-model="tab">
-          <v-tab>
-            Sign up
-          </v-tab>
+          <v-tab>Sign up</v-tab>
         </v-tabs>
       </v-card-title>
 
@@ -40,8 +38,8 @@
         <v-btn block color="brown" text @click="SignUp">Sign up</v-btn>
       </v-card-actions>
       <v-card-actions>
-      <v-btn block color="brown" text @click="SignIn">Already have an account? Sign in</v-btn>
-    </v-card-actions>
+        <v-btn block color="brown" text @click="SignIn">Already have an account? Sign in</v-btn>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
