@@ -19,7 +19,7 @@
           :rules="[requireSixCharacters]"
         ></v-text-field>
         <v-expand-transition>
-          <div v-show="tab === 1">
+          <div>
             <v-text-field
               color="brown"
               v-model="repassword"
@@ -27,28 +27,17 @@
               type="password"
               :rules="[requireSixCharacters, isEqualToPassword]"
             ></v-text-field>
-            <v-text-field color="brown" v-model="firstname" label="Firstanme"></v-text-field>
-            <v-text-field color="brown" v-model="lastname" label="Lastname"></v-text-field>
+            <v-text-field color="brown" v-model="firstname" label="First Name"></v-text-field>
+            <v-text-field color="brown" v-model="lastname" label="Last Name"></v-text-field>
             <v-text-field color="brown" v-model="email" label="Email" :rules="[isEmail]"></v-text-field>
           </div>
         </v-expand-transition>
       </v-card-text>
 
       <v-card-actions>
-        <v-btn
-          block
-          color="brown"
-          text
-          @click="SignInOrSignUp"
-        >{{ tab == 0 ? "Sign in" : "Sign up" }}</v-btn>
+        <v-btn block color="brown" text @click="SignUp">Sign up</v-btn>
       </v-card-actions>
     </v-card>
-    <v-snackbar v-model="isSignInFailed" timeout="2000">
-      <template v-slot:action="{ attrs }">
-        Wrong username or password!
-        <v-btn color="ref" text v-bind="attrs" @click="isSignInFailed = false">Close</v-btn>
-      </template>
-    </v-snackbar>
   </v-container>
 </template>
 
@@ -67,42 +56,30 @@ export default {
     isEqualToPassword(value) {
       return value === this.password || value.length === 0;
     },
-    SignInOrSignUp() {
+    SignUp() {
       let username = this.username;
       let password = this.password;
       let firstname = this.firstname;
       let lastname = this.lastname;
       let email = this.email;
-      if (this.tab === 0) {
-        http.server
-          .get("/customer/" + username + "/" + password)
-          .then(response => {
-            let data = response.data;
-            if (data !== null) {
-              localStorage.setItem("customer", JSON.stringify(data));
-              this.$store.commit("setCustomer", data);
-              this.$router.go("/menu");
-            } else this.isSignInFailed = true;
-          });
-      } else {
-        if (this.isEmail(email) === false) return;
-        let dataBody = {
-          username: username,
-          password: password,
-          firstname: firstname,
-          lastname: lastname,
-          email: email
-        };
-        let config = {
-          "Content-Type": "application/json"
-        };
-        http.server.post("/customer", dataBody, config).then(response => {
-          let data = response.data;
-          if (data.id !== null) {
-            alert(data.id);
-          }
-        });
-      }
+
+      if (this.isEmail(email) === false) return;
+      let dataBody = {
+        username: username,
+        password: password,
+        firstname: firstname,
+        lastname: lastname,
+        email: email
+      };
+      let config = {
+        "Content-Type": "application/json"
+      };
+      http.server.post("/customer", dataBody, config).then(response => {
+        let data = response.data;
+        if (data.id !== null) {
+          alert(data.id);
+        }
+      });
     }
   },
   data: () => ({

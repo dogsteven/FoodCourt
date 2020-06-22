@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export default {
   configuration: {
-    managementURL: 'http://localhost'
+    managementURL: 'http://localhost/api'
   },
 
   get(route, config = null) {
