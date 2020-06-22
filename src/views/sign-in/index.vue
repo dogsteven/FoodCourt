@@ -30,6 +30,9 @@
         <v-btn color="ref" text v-bind="attrs" @click="isSignInFailed = false">Close</v-btn>
       </template>
     </v-snackbar>
+    <v-card-actions>
+      <v-btn block color="brown" text @click="SignUp">Sign up</v-btn>
+    </v-card-actions>
   </v-container>
 </template>
 
@@ -44,7 +47,7 @@ export default {
     isEqualToPassword(value) {
       return value === this.password || value.length === 0;
     },
-    SignInp() {
+    SignIn() {
       // let username = this.username;
       // let password = this.password;
       // let firstname = this.firstname;
@@ -60,9 +63,9 @@ export default {
       //       this.$router.go("/menu");
       //     } else this.isSignInFailed = true;
       //   });
-      localStorage.setItem('account', 'ok')
-      this.$store.commit('setIsSignedIn', true)
-      this.$router.replace({ path: '/menu' })
+      localStorage.setItem("account", "ok");
+      this.$store.commit("setIsSignedIn", true);
+      this.$router.replace({ path: "/menu" });
     }
   },
   data: () => ({
