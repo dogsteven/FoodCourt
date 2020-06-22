@@ -55,7 +55,7 @@ export default {
         }
       }
       this.$store.commit('setCustomer', emptyInfo)
-      this.$router.go('/sign-in-up')
+      this.$router.go('/sign-in')
     },
   created() {
     console.log("in here")

@@ -5,7 +5,9 @@
 
       <v-card-title>
         <v-tabs color="brown" fixed-tabs v-model="tab">
-          <v-tab>Sign Up</v-tab>
+          <v-tab>
+            Sign up
+          </v-tab>
         </v-tabs>
       </v-card-title>
 
@@ -37,6 +39,9 @@
       <v-card-actions>
         <v-btn block color="brown" text @click="SignUp">Sign up</v-btn>
       </v-card-actions>
+      <v-card-actions>
+      <v-btn block color="brown" text @click="SignIn">Already have an account? Sign in</v-btn>
+    </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -55,6 +60,9 @@ export default {
     },
     isEqualToPassword(value) {
       return value === this.password || value.length === 0;
+    },
+    SignIn() {
+      this.$router.replace({ path: "/sign-in" });
     },
     SignUp() {
       let username = this.username;
