@@ -45,10 +45,13 @@ export default {
   name: "App",
   
   created() {
-    // let customer = JSON.parse(localStorage.getItem('customer'))
-    // if (customer !== null) {
-    //   this.$store.commit('setCustomer', customer)
-    // }
+    let customer = JSON.parse(localStorage.getItem('customer'))
+    if (customer !== null) {
+      this.$store.commit('setCustomer', customer)
+    }
+    if (this.$store.state.isSignedIn === false) {
+      this.signOut()
+    }
     http.server.get('/food-item').then((response) => {
       let data = response.data
       if (data != null) {
