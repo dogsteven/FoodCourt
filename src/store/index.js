@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     foods: [],
     carts: [],
+    isSignedIn: false,
     customer: {
       id: null,
       info: {
@@ -53,6 +54,10 @@ export default new Vuex.Store({
       state.customer.info.firstname = info.firstname
       state.customer.info.lastname = info.lastname
       state.customer.info.email = info.email
+    },
+
+    setIsSignedIn(state, value) {
+      state.isSignedIn = value
     }
   },
   actions: {

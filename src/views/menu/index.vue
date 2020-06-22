@@ -2,16 +2,27 @@
   <v-container
     id="menu-container"
   >
-  <v-chip-group
-        multiple
+  <v-card
+    class="mx-auto"
+    max-width="700"
   >
-    <v-chip filter outlined
-      v-for="category in this.categories"
-      :key=category
+
+    <v-card-text>
+      <h2 class="title mb-2">Filter</h2>
+
+      <v-chip-group
+        column
+        multiple
       >
-      {{category}}
-    </v-chip>
-  </v-chip-group>
+        <v-chip filter outlined
+        v-for="category in this.categories"
+        :key=category
+        >
+        {{category}}
+        </v-chip>
+      </v-chip-group>
+    </v-card-text>
+  </v-card>
     <v-card
       max-width="700"
       class="mx-auto"
@@ -24,7 +35,6 @@
           elevation="1"
           class="ma-3"
         >
-          <div v-if="addCategory(item.categories)"></div>
           <v-img
             :src="item.photo"
             :lazy-src="item.photo"      
@@ -86,10 +96,15 @@ export default {
         })
       }
     },
-    addCategory(itemCategories) {
-      this.categories = this.categories.concat(itemCategories).unique()
-      return false
-    }
+  },
+  created() {
+      for (let item of this.$store.state.foods) {
+        for (let category of item.categories) {
+          if (!(this.categories.includes(category, 0))) {
+            this.categories.push(category);
+          }
+        }
+      }
   },
   data: () => ({
     selectedItem: null,
