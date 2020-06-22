@@ -31,7 +31,7 @@
       </template>
     </v-snackbar>
     <v-card-actions>
-      <v-btn block color="brown" text @click="SignUp">Sign up</v-btn>
+      <v-btn block color="brown" text @click="SignUp">Don't have an account? Sign up</v-btn>
     </v-card-actions>
   </v-container>
 </template>
@@ -66,6 +66,9 @@ export default {
       localStorage.setItem("account", "ok");
       this.$store.commit("setIsSignedIn", true);
       this.$router.replace({ path: "/menu" });
+    },
+    SignUp() {
+       this.$router.replace({ path: "/sign-up" });
     }
   },
   data: () => ({
