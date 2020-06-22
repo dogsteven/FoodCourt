@@ -39,6 +39,5 @@ export default {
       items: [{ tab: "Tracking Order" }, { tab: "Done Order" }]
     };
   }
-  
 };
 </script>
