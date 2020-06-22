@@ -28,20 +28,25 @@ const routes = [
     component: () => import(/* webpackChunkName: "cart" */'../views/cart')
   },
   {
-    path: '/notifications',
-    name: 'Notifications',
-    component: () => import(/* webpackChunkName: "notifications" */ '../views/notifications')
+    path: '/order',
+    name: 'Order',
+    component: () => import(/* webpackChunkName: "notifications" */ '../views/order')
+  },
+  {
+    path: '/detail',
+    name: 'Order',
+    component: () => import(/* webpackChunkName: "profile" */ '../views/detail')
   },
   {
     path: '/profile',
     name: 'Profile',
     component: () => import(/* webpackChunkName: "profile" */ '../views/profile')
   },
-  // {
-  //   path: '/item-detail/:id',
-  //   name: 'Item Detail',
-  //   component: () => import(/* webpackChunkName: "item-detail" */ '../views/menu/item-detail.vue')
-  // },
+  //{
+  //  path: '/item-detail/:id',
+  //  name: 'Item Detail',
+  //  component: () => import(/* webpackChunkName: "item-detail" */ '../views/menu/item-detail.vue')
+  //}
   {
     path: '*',
     redirect: '/menu'

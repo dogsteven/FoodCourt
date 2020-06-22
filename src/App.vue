@@ -1,70 +1,37 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      app
-      fixed
-      v-model="isShowDrawer"
-    >
+    <v-navigation-drawer app fixed v-model="isShowDrawer">
       <v-list>
-        <v-list-item
-          @click="signOut"
-        >
-          Sign out!
-        </v-list-item>
+        <v-list-item @click="signOut">Sign out!</v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar
-      app
-      fixed
-      shift
-      grow
-      color="#ff2400"
-      v-if="$store.state.isSignedIn"
-    >
-      <v-app-bar-nav-icon
-        @click.stop="isShowDrawer = !isShowDrawer" />
+    <v-app-bar app fixed shift grow color="#ff2400" v-if="$store.state.isSignedIn">
+      <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer" />
 
-      <v-toolbar-title>
-        {{ $route.name }}
-      </v-toolbar-title>
+      <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
     </v-app-bar>
 
-    <v-content >
+    <v-content>
       <router-view />
     </v-content>
 
-    <v-bottom-navigation
-      app
-      fixed
-      grow
-      shift
-      color="#ff2400"
-      v-if="$store.state.isSignedIn"
-    >
-      <v-btn
-        to="/menu"
-      >
+    <v-bottom-navigation app fixed grow shift color="#ff2400" v-if="$store.state.isSignedIn">
+      <v-btn to="/menu">
         <span>Menu</span>
         <v-icon>fas fa-home</v-icon>
       </v-btn>
 
-      <v-btn
-        to="/cart"
-      >
+      <v-btn to="/cart">
         <span>Cart</span>
         <v-icon>fas fa-shopping-cart</v-icon>
       </v-btn>
 
-      <v-btn
-        to="/notifications"
-      >
-        <span>Notification</span>
-        <v-icon>fas fa-bell</v-icon>
+      <v-btn to="/order">
+        <span>Order</span>
+        <v-icon>fas fa-clipboard</v-icon>
       </v-btn>
 
-      <v-btn
-        to="/profile"
-      >
+      <v-btn to="/profile">
         <span>Profile</span>
         <v-icon>fas fa-user-alt</v-icon>
       </v-btn>
@@ -74,29 +41,25 @@
 
 <script>
 export default {
-  name: 'App',
-
+  name: "App",
   created() {
-    this.$store.dispatch('queryFoods', 'api/food')
-    if (localStorage.getItem('account') !== null)
-      this.$store.commit('setIsSignedIn', true)
+    this.$store.dispatch("queryFoods", "api/food");
+    if (localStorage.getItem("account") !== null)
+      this.$store.commit("setIsSignedIn", true);
   },
-
   methods: {
     signOut() {
-      this.isShowDrawer = false
-      this.$store.commit('setIsSignedIn', false)
-      localStorage.removeItem('account')
-      this.$router.replace({ name: '/sign-in' })
+      this.isShowDrawer = false;
+      this.$store.commit("setIsSignedIn", false);
+      localStorage.removeItem("account");
+      this.$router.replace({ name: "/sign-in" });
     }
   },
-
   data: () => ({
     isShowDrawer: false
-  }),
+  })
 };
 </script>
 
 <style>
-
 </style>
