@@ -37,7 +37,7 @@
 </template>
 
 <script>
-// import http from "../../http";
+import http from "../../http";
 export default {
   methods: {
     requireSixCharacters(value) {
@@ -48,21 +48,21 @@ export default {
       return value === this.password || value.length === 0;
     },
     SignIn() {
-      // let username = this.username;
-      // let password = this.password;
-      // let firstname = this.firstname;
-      // let lastname = this.lastname;
-      // let email = this.email;
-      // http.server
-      //   .get("/customer/" + username + "/" + password)
-      //   .then(response => {
-      //     let data = response.data;
-      //     if (data !== null) {
-      //       localStorage.setItem("customer", JSON.stringify(data));
-      //       this.$store.commit("setCustomer", data);
-      //       this.$router.go("/menu");
-      //     } else this.isSignInFailed = true;
-      //   });
+      let username = this.username;
+      let password = this.password;
+      let firstname = this.firstname;
+      let lastname = this.lastname;
+      let email = this.email;
+      http.server
+        .get("/customer/" + username + "/" + password)
+        .then(response => {
+          let data = response.data;
+          if (data !== null) {
+            this.$store.commit("setCustomer", data);
+            this.$store.commit("setIsSignedIn", true);
+            this.$router.replace({ path: "/menu" });
+          } else this.$store.commit("setIsSignedIn", false);
+        });
       localStorage.setItem("account", "ok");
       this.$store.commit("setIsSignedIn", true);
       this.$router.replace({ path: "/menu" });
