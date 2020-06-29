@@ -61,7 +61,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let publicPaths = ['/sign-in', '/sign-up']
-  let isSignedIn = localStorage.getItem('account') !== null
+  let isSignedIn = localStorage.getItem('customer') !== null
   let isAtPublicPath = publicPaths.includes(to.path)
   if (isAtPublicPath && isSignedIn)
     next({ path: '/menu' })

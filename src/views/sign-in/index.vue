@@ -44,10 +44,12 @@ export default {
           .then(response => {
             let data = response.data;
             if (data !== null) {
-              this.$store.commit("setIsSignedIn", true);
-              this.$router.replace({ path: "/menu" });
+              localStorage.setItem("customer", JSON.stringify(data));
+              this.$store.commit("setCustomer", data);
+              this.$router.go("/menu");
             } else {
               alert("Username or Password is incorrect");
+              this.isSignInFailed = true;
             }
           });
       }
