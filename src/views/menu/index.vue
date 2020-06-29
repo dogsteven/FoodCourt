@@ -110,9 +110,11 @@ export default {
           itemFilter.push(this.categories[element])
         }
       );
-      console.log(food.categories)
       console.log(itemFilter)
-      
+      let test = (Object.values(food.categories)).filter(function(item) {
+        return !itemFilter.includes(item); 
+      }) 
+      console.log(test)
       return true 
     },
   },
