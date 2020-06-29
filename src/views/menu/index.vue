@@ -11,6 +11,7 @@
       <h2 class="title mb-2">Filter</h2>
 
       <v-chip-group
+        v-model="filter"
         column
         multiple
       >
@@ -29,12 +30,13 @@
       elevation="0"
     >
       <v-card-text>
-        <v-card
-          v-for="(item, index) in $store.state.foods"
+        <div
+          v-for="(item, index) in this.$store.state.foods"
           :key="index"
           elevation="1"
           class="ma-3"
         >
+        <v-card v-if="filterByChip(item)">
           <v-img
             :src="item.photo"
             :lazy-src="item.photo"      
@@ -69,6 +71,7 @@
             </v-expand-transition>
           </v-card-text>
         </v-card>
+        </div>
       </v-card-text>
     </v-card>
   </v-container>
@@ -88,6 +91,7 @@ Array.prototype.unique = function() {
 export default {
   methods: {
     addItemToCart(index) {
+      console.log(this.filter)
       let exist = this.$store.state.carts.findIndex(item => item.index === index) >= 0
       if (exist === false) {
         this.$store.commit('pushCartItem', {
@@ -95,6 +99,21 @@ export default {
           quantity: 1
         })
       }
+    }, 
+    filterByChip (food) {
+      if (this.filter == []) {
+        return true;
+      }
+      let itemFilter = []
+      
+      this.filter.forEach(element => {
+          itemFilter.push(this.categories[element])
+        }
+      );
+      console.log(food.categories)
+      console.log(itemFilter)
+      
+      return true 
     },
   },
   created() {
@@ -107,8 +126,10 @@ export default {
       }
   },
   data: () => ({
-    selectedItem: null,
-    categories: []
+    selectedItem : null,
+    categories: [],
+    filter: [],
+    selectedCate: []
   })
 }
 </script>
