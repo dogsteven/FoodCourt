@@ -23,16 +23,10 @@
       <v-card-actions>
         <v-btn block color="brown" text @click="SignIn">Sign in</v-btn>
       </v-card-actions>
+      <v-card-actions>
+        <v-btn block color="brown" text @click="SignUp">Don't have an account? Sign up</v-btn>
+      </v-card-actions>
     </v-card>
-    <v-snackbar v-model="isSignInFailed" timeout="2000">
-      <template v-slot:action="{ attrs }">
-        Wrong username or password!
-        <v-btn color="ref" text v-bind="attrs" @click="isSignInFailed = false">Close</v-btn>
-      </template>
-    </v-snackbar>
-    <v-card-actions>
-      <v-btn block color="brown" text @click="SignUp">Don't have an account? Sign up</v-btn>
-    </v-card-actions>
   </v-container>
 </template>
 
@@ -50,9 +44,7 @@ export default {
     SignIn() {
       let username = this.username;
       let password = this.password;
-      let firstname = this.firstname;
-      let lastname = this.lastname;
-      let email = this.email;
+
       http.server
         .get("/customer/" + username + "/" + password)
         .then(response => {

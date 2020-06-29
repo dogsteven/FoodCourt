@@ -4,35 +4,40 @@
       <v-img max-height="200" src="../../assets/sign-in-wallpaper.png"></v-img>
 
       <v-card-title>
-        <v-tabs color="brown" fixed-tabs v-model="tab">
+        <v-tabs color="brown" fixed-tabs>
           <v-tab>Sign up</v-tab>
         </v-tabs>
       </v-card-title>
 
-      <v-card-text class="pa-5">
-        <v-text-field color="brown" v-model="username" label="Username"></v-text-field>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field
+          color="brown"
+          v-model="username"
+          label="Username"
+          :rules="usernameRules"
+          :error-messages="errors"
+          required
+        ></v-text-field>
         <v-text-field
           color="brown"
           v-model="password"
           label="Password"
           type="password"
-          :rules="[requireSixCharacters]"
+          :rules="passwordRules"
+          required
         ></v-text-field>
-        <v-expand-transition>
-          <div>
-            <v-text-field
-              color="brown"
-              v-model="repassword"
-              label="Confirm password"
-              type="password"
-              :rules="[requireSixCharacters, isEqualToPassword]"
-            ></v-text-field>
-            <v-text-field color="brown" v-model="firstname" label="First Name"></v-text-field>
-            <v-text-field color="brown" v-model="lastname" label="Last Name"></v-text-field>
-            <v-text-field color="brown" v-model="email" label="Email" :rules="[isEmail]"></v-text-field>
-          </div>
-        </v-expand-transition>
-      </v-card-text>
+        <v-text-field
+          color="brown"
+          v-model="repassword"
+          label="Confirm password"
+          type="password"
+          :rules="[(password === repassword) || 'Password must match']"
+          required
+        ></v-text-field>
+        <v-text-field color="brown" v-model="firstname" label="First Name"></v-text-field>
+        <v-text-field color="brown" v-model="lastname" label="Last Name"></v-text-field>
+        <v-text-field color="brown" v-model="email" label="Email" :rules="emailRules"></v-text-field>
+      </v-form>
 
       <v-card-actions>
         <v-btn block color="brown" text @click="SignUp">Sign up</v-btn>
@@ -48,55 +53,55 @@
 import http from "../../http";
 export default {
   methods: {
-    isEmail(value) {
-      const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return pattern.test(value) || value.length === 0;
-    },
-    requireSixCharacters(value) {
-      if (this.tab === 0) return true;
-      return value.length >= 6 || value.length === 0;
-    },
-    isEqualToPassword(value) {
-      return value === this.password || value.length === 0;
-    },
     SignIn() {
       this.$router.replace({ path: "/sign-in" });
     },
     SignUp() {
-      let username = this.username;
-      let password = this.password;
-      let firstname = this.firstname;
-      let lastname = this.lastname;
-      let email = this.email;
-
-      if (this.isEmail(email) === false) return;
-      let dataBody = {
-        username: username,
-        password: password,
-        firstname: firstname,
-        lastname: lastname,
-        email: email
-      };
-      let config = {
-        "Content-Type": "application/json"
-      };
-      http.server.post("/customer", dataBody, config).then(response => {
-        let data = response.data;
-        if (data.id !== null) {
-          alert(data.id);
-        }
-      });
+      if (this.$refs.form.validate()) {
+        let username = this.username;
+        let password = this.password;
+        let firstname = this.firstname;
+        let lastname = this.lastname;
+        let email = this.email;
+        let dataBody = {
+          username: username,
+          password: password,
+          firstname: firstname,
+          lastname: lastname,
+          email: email
+        };
+        let config = {
+          "Content-Type": "application/json"
+        };
+        http.server.post("/customer", dataBody, config).then(response => {
+          let data = response.data;
+          if (data !== null) {
+            this.$router.replace({ path: "/sign-in" });
+          } else {
+            this.errors = "Username already exists!";
+          }
+        });
+      }
     }
   },
   data: () => ({
+    errors: [],
+    valid: true,
     username: "",
     password: "",
     repassword: "",
     firstname: "",
     lastname: "",
     email: "",
-    tab: 0,
-    isSignInFailed: false
+    usernameRules: [v => !!v || "Username is required"],
+    passwordRules: [
+      v => !!v || "Password is required",
+      v => (v && v.length >= 10) || "Password must be more than 10 characters"
+    ],
+    emailRules: [
+      v => !!v || "E-mail is required",
+      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+    ]
   })
 };
 </script>
