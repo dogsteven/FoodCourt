@@ -9,7 +9,7 @@
         </v-tabs>
       </v-card-title>
 
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" lazy-validation class="mx-5">
         <v-text-field
           color="brown"
           v-model="username"
@@ -76,7 +76,7 @@ export default {
         http.server.post("/customer", dataBody, config).then(response => {
           let data = response.data;
           if (data !== null) {
-            this.$router.replace({ path: "/sign-in" });
+            this.$router.go("/sign-in");
           } else {
             this.errors = "Username already exists!";
           }

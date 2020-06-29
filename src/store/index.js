@@ -48,12 +48,12 @@ export default new Vuex.Store({
       state.carts.splice(position, 1)
     },
 
-    setCustomer(state, { id, info }) {
+    setCustomer(state, {id, username, firstname, lastname, email}) {
       state.customer.id = id
-      state.customer.info.username = info.username
-      state.customer.info.firstname = info.firstname
-      state.customer.info.lastname = info.lastname
-      state.customer.info.email = info.email
+      state.customer.info.username = username
+      state.customer.info.firstname = firstname
+      state.customer.info.lastname = lastname
+      state.customer.info.email = email
     },
 
     setIsSignedIn(state, value) {

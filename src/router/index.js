@@ -34,7 +34,7 @@ const routes = [
   },
   {
     path: '/detail',
-    name: 'Order',
+    name: 'Detail',
     component: () => import(/* webpackChunkName: "profile" */ '../views/detail')
   },
   {
@@ -63,12 +63,16 @@ router.beforeEach((to, from, next) => {
   let publicPaths = ['/sign-in', '/sign-up']
   let isSignedIn = localStorage.getItem('customer') !== null
   let isAtPublicPath = publicPaths.includes(to.path)
-  if (isAtPublicPath && isSignedIn)
+  if (isAtPublicPath && isSignedIn) {
     next({ path: '/menu' })
-  else if (!isAtPublicPath && !isSignedIn)
-    next({ path: '/sign-in' })
-  else
+  }
+  else if (!isAtPublicPath && !isSignedIn)  {
+    if (to.path !== '/')
+      next({ path: '/sign-in' })
+  }
+  else {
     next()
+  }
 })
 
 export default router

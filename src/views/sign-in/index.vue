@@ -9,7 +9,7 @@
         </v-tabs>
       </v-card-title>
 
-      <v-form ref="form" v-model="valid" lazy-validation>
+      <v-form ref="form" v-model="valid" lazy-validation class="mx-5">
         <v-text-field color="brown" v-model="username" label="Username" :rules="usernameRules"></v-text-field>
         <v-text-field
           color="brown"
