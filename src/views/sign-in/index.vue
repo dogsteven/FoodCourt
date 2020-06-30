@@ -46,10 +46,9 @@ export default {
             if (data !== null) {
               localStorage.setItem("customer", JSON.stringify(data));
               this.$store.commit("setCustomer", data);
-              this.$router.go("/menu");
+              this.$router.replace("/menu");
             } else {
               alert("Username or Password is incorrect");
-              this.isSignInFailed = true;
             }
           });
       }
