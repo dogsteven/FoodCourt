@@ -1,55 +1,34 @@
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import SignInView from '../views/sign-in'
-import SignUpView from '../views/sign-up'
+import SignInUp from '../views/sign-in-up'
+import Menu from '../views/menu'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/sign-in',
+    path: '/sign-in-up',
     name: 'Sign In',
-    component: SignInView
-  },
-  {
-    path: '/sign-up',
-    name: 'Sign Up',
-    component: SignUpView
+    component: SignInUp
   },
   {
     path: '/menu',
     name: 'Menu',
-    component: () => import(/* webpackChunkName: "menu" */ '../views/menu')
+    component: Menu
   },
   {
     path: '/cart',
     name: 'Cart',
-    component: () => import(/* webpackChunkName: "cart" */'../views/cart')
-  },
-  {
-    path: '/order',
-    name: 'Order',
-    component: () => import(/* webpackChunkName: "notifications" */ '../views/order')
-  },
-  {
-    path: '/detail',
-    name: 'Detail',
-    component: () => import(/* webpackChunkName: "profile" */ '../views/detail')
+    component: () => import(/* webpackChunkName: "cart-view" */ "../views/cart")
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "profile" */ '../views/profile')
+    component: () => import(/* webpackChunkName: "profile-view" */ "../views/profile")
   },
-  //{
-  //  path: '/item-detail/:id',
-  //  name: 'Item Detail',
-  //  component: () => import(/* webpackChunkName: "item-detail" */ '../views/menu/item-detail.vue')
-  //}
   {
     path: '*',
-    redirect: '/menu'
+    redirect: '/sign-in-up'
   }
 ]
 
@@ -60,20 +39,14 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let publicPaths = ['/sign-in', '/sign-up']
-  let isSignedIn = localStorage.getItem('customer') !== null
-  let isAtPublicPath = publicPaths.includes(to.path)
-  if (isAtPublicPath && isSignedIn) { 
-    next ({ path: '/menu' })
-    return
-  }
-  else if (!isAtPublicPath && !isSignedIn)  {
-    if (to.path !== '/')
-      next({ path: '/sign-in' })
-  }
-  else {
+  let isSignedIn = localStorage.getItem('customer') != null
+  let isAtPublicPaths = to.path === '/sign-in-up'
+  if (isAtPublicPaths && isSignedIn)
+    next('/menu')
+  else if (!isAtPublicPaths && !isSignedIn)
+    next('/sign-in-up')
+  else
     next()
-  }
 })
 
 export default router

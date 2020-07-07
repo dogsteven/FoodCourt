@@ -1,112 +1,138 @@
 <template>
   <v-app>
-    <v-navigation-drawer app fixed v-model="isShowDrawer">
+    <v-navigation-drawer
+      app
+      v-model="isShowDrawer"
+      v-if="$store.state.customer.id != null"
+    >
       <v-list>
-        <v-list-item @click="signOut">Sign out!</v-list-item>
+        <v-list-item
+          to='/menu'
+          color="orange"
+        >
+          <v-list-item-icon>
+            <v-icon>fas fa-hamburger</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            Menu
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          color="orange"
+        >
+          <v-list-item-icon>
+            <v-icon>fas fa-bell</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            Notifications
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          to='/profile'
+          color="orange"
+        >
+          <v-list-item-icon>
+            <v-icon>fas fa-user-alt</v-icon>
+            </v-list-item-icon>
+          <v-list-item-title>
+            Profile
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          @click="signout"
+        >
+          <v-list-item-icon>
+            <v-icon>fas fa-sign-out-alt</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>
+            Sign out
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app fixed shift grow color="#ff2400" v-if="$store.state.isSignedIn">
-      <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer" />
 
-      <v-toolbar-title>{{ $route.name }}</v-toolbar-title>
+    <v-app-bar
+      app
+      color="orange"
+      dark
+      v-if="$store.state.customer.id !== null"
+    >
+      <v-app-bar-nav-icon
+        @click="isShowDrawer = !isShowDrawer"
+      >
+      </v-app-bar-nav-icon>
+
+      <v-spacer></v-spacer>
+
+        <v-toolbar-title>{{ $route.name === "Sign In" ? "" : $route.name }}</v-toolbar-title>
+
+      <v-spacer></v-spacer>
+      
+      <v-btn
+        to="/cart"
+        icon
+      >
+        <v-badge
+          :color="$store.state.carts.length == 0 ? 'transparent' : 'error'"
+          :content="$store.state.carts.length"
+          overlap
+        >
+          <v-icon>mdi-cart</v-icon>
+        </v-badge>
+      </v-btn>
     </v-app-bar>
 
-    <v-content >
-      <router-view />
-    </v-content>
-
-    <v-bottom-navigation app fixed grow shift color="#ff2400" v-if="$store.state.isSignedIn">
-      <v-btn to="/menu">
-        <span>Menu</span>
-        <v-icon>fas fa-home</v-icon>
-      </v-btn>
-
-      <v-btn to="/cart">
-        <span>Cart</span>
-        <v-icon>fas fa-shopping-cart</v-icon>
-      </v-btn>
-
-      <v-btn to="/order">
-        <span>Order</span>
-        <v-icon>fas fa-clipboard</v-icon>
-      </v-btn>
-
-      <v-btn to="/profile">
-        <span>Profile</span>
-        <v-icon>fas fa-user-alt</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+    <v-main>
+      <router-view>
+      </router-view>
+    </v-main>
   </v-app>
 </template>
 
 <script>
 import http from './http'
+import FoodItem from './models/food-item'
+
 export default {
-  name: "App",
-  
-  created() {
-    let customer = JSON.parse(localStorage.getItem('customer'))
-    if (customer !== null) {
-      this.$store.commit('setCustomer', customer)
-    }
-    if (this.$store.state.isSignedIn === false) {
-      this.signOut()
-    }
-    http.server.get('/food-item').then((response) => {
-      let data = response.data
-      if (data != null) {
-        for (let key in data) {
-          this.$store.commit('pushFoodItem', {
-            id: key,
-            name: data[key].name,
-            price: data[key].price,
-            quantity: data[key].quantity,
-            categories: data[key].categories,
-            description: data[key].description,
-            photo: data[key].photo
-          })
-        }
-      }
-    })
-  },
+  name: 'App',
+
   methods: {
     signout() {
       localStorage.removeItem('customer')
       let emptyInfo = {
         id: null,
-        info: {
-          username: null,
-          firstname: null,
-          lastname: null,
-          email: null
-        }
+        username: null,
+        password: null,
+        firstname: null,
+        lastname: null,
+        email: null,
+        registrationTokens: []
       }
       this.$store.commit('setCustomer', emptyInfo)
-      this.$router.go('/sign-in')
-    },
-    signOut() {
-      localStorage.removeItem('customer')
-      let emptyInfo = {
-        id: null,
-        info: {
-          username: null,
-          firstname: null,
-          lastname: null,
-          email: null
-        }
-      }
-      this.$store.commit('setCustomer', emptyInfo)
-      this.isShowDrawer = false;
-      this.$store.commit("setIsSignedIn", false);
-      localStorage.removeItem("account");
-      this.$router.replace({ name: "/sign-in" });
+      this.$router.go('/sign-in-up')
     }
   },
+
+  created() {
+    let customer = JSON.parse(localStorage.getItem('customer'))
+    if (customer !== null)
+      if (('id' in customer) && ('username' in customer) && ('password' in customer) && ('firstname' in customer) && ('lastname' in customer) && ('email' in customer) && ('registrationTokens' in customer))
+        this.$store.commit('setCustomer', customer)
+      else {
+        localStorage.removeItem('customer')
+        this.$router.go('/sign-in-up')
+      }
+
+    http.server.get('/food-item').then(({ data }) => {
+      for (let item of data) {
+        let foodItem = new FoodItem(item.id, item.vendorID, item.name, item.price, item.quantity, item.categories, item.description, item.photo, item.rating, item.ratingTimes)
+        this.$store.commit('pushFoodItem', foodItem)
+      }
+    })
+  },
+
   data: () => ({
     isShowDrawer: false
-  })
+  }),
 };
 </script>
-
-<style>
-</style>
