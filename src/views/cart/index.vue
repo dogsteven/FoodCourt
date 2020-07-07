@@ -2,7 +2,7 @@
   <v-container id="card-container">
     <v-card v-if="$store.state.carts.length === 0" class="mx-auto" elevation="0">
       <v-card-text class="text-center">Empty cart!</v-card-text>
-    </v-card>
+    </v-card> 
     <v-card class="mx-auto pb-16" max-width="700" elevation="0">
       <v-card v-for="(item, index) in $store.state.carts" :key="index" elevation="1" class="ma-3">
         <v-img :src="$store.state.foods[getFoodItemIndexByID(item.foodID)].photo" max-height="130"></v-img>
