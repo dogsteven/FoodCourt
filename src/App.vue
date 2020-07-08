@@ -5,7 +5,7 @@
         <v-list-item @click="signOut">Sign out!</v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app fixed shift grow color="#ff2400" v-if="$store.state.isSignedIn">
+    <v-app-bar app dark fixed shift grow color="#ff2400" v-if="$store.state.isSignedIn">
       <v-app-bar-nav-icon @click.stop="isShowDrawer = !isShowDrawer" />
 
       <v-toolbar-title>{{ $route.name }}</v-toolbar-title>

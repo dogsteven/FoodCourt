@@ -36,7 +36,7 @@
           elevation="1"
           class="ma-3"
         >
-        <v-card v-if="filterByChip(item)">
+        <v-card >
           <v-img
             :src="item.photo"
             :lazy-src="item.photo"      
@@ -110,9 +110,11 @@ export default {
           itemFilter.push(this.categories[element])
         }
       );
-      console.log(itemFilter)
-      let test = (Object.values(food.categories)).filter(function(item) {
-        return !itemFilter.includes(item); 
+
+      let test = (Object.values(food.categories).slice(-1)).filter(function(item) {
+        console.log(typeof item)
+        // if (item === null) return false;
+        // return !itemFilter.includes(item); 
       }) 
       console.log(test)
       return true 
