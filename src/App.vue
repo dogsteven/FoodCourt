@@ -135,4 +135,20 @@ export default {
     isShowDrawer: false
   }),
 };
+import firebase from 'firebase'
+// [START get_messaging_object]
+// Retrieve Firebase Messaging object.
+const messaging = firebase.messaging();
+// [END get_messaging_object]
+// [START set_public_vapid_key]
+// Add the public key generated from the console here.
+messaging.usePublicVapidKey('<YOUR_PUBLIC_VAPID_KEY_HERE>');
+// [END set_public_vapid_key]
+
+// IDs of divs that display Instance ID token UI or request permission UI.
+const tokenDivId = 'token_div';
+const permissionDivId = 'permission_div';
+
+// [START refresh_token]
+// Callback fired if Instance ID token is updated.
 </script>
