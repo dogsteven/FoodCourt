@@ -5,20 +5,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    messagingToken: null,
     foods: [],
     carts: [],
-    isSignedIn: false,
     customer: {
       id: null,
-      info: {
-        username: null,
-        firstname: null,
-        lastname: null,
-        email: null
-      }
+      username: null,
+      password: null,
+      firstname: null,
+      lastname: null,
+      email: null,
+      registrationTokens: []
     }
   },
   mutations: {
+    setMessagingToken(state, token) {
+      state.messagingToken = token
+    },
+
     pushFoodItem(state, value) {
       state.foods.push(value)
     },
@@ -48,16 +52,14 @@ export default new Vuex.Store({
       state.carts.splice(position, 1)
     },
 
-    setCustomer(state, { id, info }) {
+    setCustomer(state, { id, username, password, firstname, lastname, email, registrationTokens }) {
       state.customer.id = id
-      state.customer.info.username = info.username
-      state.customer.info.firstname = info.firstname
-      state.customer.info.lastname = info.lastname
-      state.customer.info.email = info.email
-    },
-
-    setIsSignedIn(state, value) {
-      state.isSignedIn = value
+      state.customer.username = username
+      state.customer.password = password
+      state.customer.firstname = firstname
+      state.customer.lastname = lastname
+      state.customer.email = email
+      state.customer.registrationTokens = registrationTokens
     }
   },
   actions: {
