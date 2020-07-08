@@ -3,7 +3,8 @@
     <v-card max-width="700" class="mx-auto mt-1" elevation="0">
       <v-card-text>
         <v-toolbar flat color="transparent">
-          <v-text-field append-icon="mdi-magnify" label="Find a food" single-line></v-text-field>
+          <v-text-field
+            @input="value => { searchName = value }" append-icon="mdi-magnify" label="Find a food" single-line></v-text-field>
         </v-toolbar>
 
         <v-chip-group column multiple>
