@@ -1,114 +1,189 @@
 <template>
-<v-container>
-  <v-list three-line>
-    <v-container>
-      <v-card v-for="(item) in items" :key="item.id" class="border-item">
-          <v-row>
-            <v-col cols="4">
-              <v-img id="itemImg"
-              height="100"
-              width="100"
-              class="my-2 mx-4"
-              :src="item.img"> </v-img>
-            </v-col>
-            <v-col cols="8">
-                <v-card-title> {{item.title}} 
-                <v-btn @click="remove(index)" icon ripple  class="ml-6"><v-icon color="red lighten-1" x-small> mdi-delete </v-icon></v-btn> 
-                </v-card-title>
-              <v-card-subtitle> {{item.price}} </v-card-subtitle>
-              <v-row class="mx-3">
-                <v-btn @click="update(item.id, item.qty - 1)" small class="button"> <v-icon x-small> mdi-minus </v-icon> </v-btn>
-                <v-text class="mx-3"> {{item.qty}} </v-text>
-                <v-btn @click="update(item.id, item.qty + 1)" small class="button"> <v-icon x-small> mdi-plus </v-icon> </v-btn>
-              </v-row>
-            </v-col>
-          </v-row>
-      </v-card>
-    </v-container>
-  </v-list>
-    <v-card id="bottomCard">
-      <!-- <v-card-actions>
-                  
-                </v-card-actions> -->
-      <v-row class="mt-0">
-        <v-card-title class="ml-5"> Tổng tiền
+  <v-container
+    id="card-container"
+  >
+    <v-card
+      v-if="$store.state.carts.length === 0"
+      class="mx-auto"
+      elevation="0"
+    >
+      <v-card-text
+        class="text-center"
+      >
+        Empty cart!
+      </v-card-text>
+    </v-card>
+    <v-card
+      class="mx-auto pb-16"
+      max-width="700"
+      elevation="0"
+    >
+      <v-card
+        v-for="(item, index) in $store.state.carts"
+        :key="index"
+        elevation="1"
+        class="ma-3"
+      >
+        
+          <v-img
+            :src="$store.state.foods[getFoodItemIndexByID(item.foodID)].photo"
+            max-height="130"
+          >
+          </v-img>
+        
+        <v-card-title>
+          {{ $store.state.foods[getFoodItemIndexByID(item.foodID)].name }}
         </v-card-title>
-        <v-card-content class="ma-auto"> {{"40,000 VNĐ"}} </v-card-content>
-      </v-row>
-      <v-btn x-large color="success" block dark class="mx-auto"> THANH TOÁN </v-btn>
+        <v-card-subtitle>
+          Số lượng: {{ item.quantity }}<br />
+          Đơn giá: {{ $store.state.foods[getFoodItemIndexByID(item.foodID)].price }} VND, tổng cộng: {{ $store.state.foods[getFoodItemIndexByID(item.foodID)].price * item.quantity }}
+        </v-card-subtitle>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-card
+            elevation="0"
+          >
+            <v-card-actions>
+              <v-btn
+                icon
+                @click="$store.commit('decreaseCartItemQuantity', { index: index, amount: 1 })"
+              >
+                <v-icon>mdi-minus</v-icon>
+              </v-btn>
+              <v-btn
+                icon
+                @click="$store.commit('increaseCartItemQuantity', { index: index, amount: 1 })"
+              >
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+          <v-btn
+            text
+            color="red"
+            @click="$store.commit('removeItemFromCart', index)"
+          >
+            Remove
+          </v-btn>
+        </v-card-actions>
+      </v-card>
     </v-card>
 
-</v-container>
+    <v-footer
+      v-if="$store.state.carts.length >= 0"
+      inset
+      app
+    >
+      <v-dialog
+        v-model="isShowPaymentDialog"
+        max-width="500"
+      >
+            
+        <v-card>
+          <v-card-title>
+            Online Payment
+            <v-spacer></v-spacer>
+            <v-btn
+              right
+              absolute
+              icon
+              @click="isShowPaymentDialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+          <v-card-subtitle>
+            Enter your FakeMomo's account
+          </v-card-subtitle>
+          <v-card-text>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  label="Username"
+                  color="orange"
+                >
+                </v-text-field>
+              </v-col>
+            </v-row>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn
+              text
+              block
+              color="green"
+            >
+              Make payment
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+            
+        <template
+          v-slot:activator="{ on, attrs }"
+        >
+          <v-btn
+            text
+            block
+            color="orange"
+            v-on="on"
+            v-bind="attrs"
+            @click="purchase"
+            :disabled="$store.state.carts.length === 0"
+          >
+            Online Payment
+          </v-btn>
+          </template>
+      </v-dialog>
+    </v-footer>
+  </v-container>
 </template>
 
 <script>
+import http from '../../http'
 export default {
-  data: () => ({
-    data: 1,
-      items: [{
-          id: 1,
-          img: 'https://photo-2-baomoi.zadn.vn/w1000_r1/2019_08_08_251_31770415/d3f80a5d6b1d8243db0c.jpg',
-          price: "20,000 VNĐ",
-          title: 'Bò kho bánh mì',
-          qty: 2
-      },
-      ]
-  }),
-  computed: {
-    calculateTotal() {
-      var total = 0
-      // var obj = this.items
-      for (var i = 0; i < this.items.length; i++) {
-        total += this.items[i].price * this.items[i].qty
+  methods: {
+    getFoodItemIndexByID(id) {
+      return this.$store.state.foods.findIndex(item => item.id === id)
+    },
+    purchase() {
+      console.log("PURCHASE!")
+      let data = {
+        customerID: this.$store.state.customer.id,
+        cartItems: this.$store.state.carts.map((item) => {
+          let index = this.$store.state.foods.findIndex(i => i.id === item.foodID)
+          let vendorID = this.$store.state.foods[index].vendorID
+          return {
+              foodItemID: item.foodID,
+              vendorID: vendorID,
+              quantity: item.quantity
+          }
+          })
       }
-      return total
+      let config = {
+          "Content-Type": "application/json"
+      }
+      http.server.post('/order', data, config).then((response) => {
+        console.log(data)
+        let resData = response.data
+        console.log(response)
+        if (resData.id != null) {
+          // order successfully
+          localStorage.setItem('orderID', resData.id)
+          console.log('success')
+        }
+        else {
+          // failed
+          localStorage.setItem('orderID', resData.id)
+          console.log('failed')
+        }
+      })
     }
   },
-  method: {
-    update: function(id, qty) {
-      if (this.items[id].qty >= 1) {
-        console.log("update")
-        this.items[id].qty = qty
-      }
-    },
-    remove: (index) => {
-      this.items.splice(index, 1)
-    }
-  }
+  data: () => ({
+    isShowPaymentDialog: false
+  })
 }
 </script>
 
-<style scoped>
-.v-bottom-navigation {
-  position: fixed;
-  width: 100%;
-  left: 0px;
-  bottom: 57px;
-  border: 0;
-}
-#bottomCard {
-  position: fixed;
-  width: 100%;
-  left: 0px;
-  bottom: 57px;
-  border: 0;
-}
-#itemImg {
-  border-radius: 50%;
-}
-#red-background {
-  background: red;
-}
-#blue {
-  background: blue;
-}
-#yellow {
-  background: yellow;
-}
-.border-item {
-  border: 1px black;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-</style>
+<style>
 
+</style>

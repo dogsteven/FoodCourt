@@ -1,23 +1,43 @@
 import axios from 'axios'
 
+let configuration = {
+        serverURL: "http://localhost/api"
+}
+
 export default {
-  configuration: {
-    managementURL: 'http://localhost'
-  },
+    server: {
+        /**
+         * @param {string} route
+         */
+        get(route) { 
+            return axios.get(configuration.serverURL + route)
+        },
 
-  get(route, config = null) {
-    return axios.get(this.configuration.managementURL + '/' + route, config)
-  },
+        /**
+         * @param {string} route
+         * @param {any?} data 
+         * @param {import('axios').AxiosRequestConfig} config 
+         */
+        post(route, data = null, config = null) {
+            return axios.post(configuration.serverURL + route, data, config)
+        },
 
-  post(route, data, config) {
-    return axios.post(this.configuration.managementURL + '/' + route, data, config)
-  },
+        /**
+         * @param {string} route
+         * @param {any?} data 
+         * @param {import('axios').AxiosRequestConfig} config 
+         */
+        put(route, data = null, config = null) {
+            return axios.put(configuration.serverURL + route, data, config)
+        },
 
-  put(route, data, config) {
-    return axios.put(this.configuration.managementURL + '/' + route, data, config)
-  },
+        /**
+         * @param {string} route
+         */
+        delete(route) {
+            return axios.delete(configuration.serverURL + route)
+        }
+    },
 
-  delete(route, config) {
-    return axios.delete(this.configuration.managementURL + '/' + route, config)
-  }
+    axios: axios
 }
