@@ -1,6 +1,21 @@
 <template>
   <v-container id="menu-container" fluid>
     <v-card max-width="700" class="mx-auto mt-1" elevation="0">
+      <v-card-text>
+        <v-toolbar flat color="transparent">
+          <v-text-field append-icon="mdi-magnify" label="Find a food" single-line></v-text-field>
+        </v-toolbar>
+
+        <v-chip-group column multiple>
+          <v-chip
+            filter
+            outlined
+            v-for="category in this.categories"
+            :key="category"
+            @click="selectCategories(category)"
+          >{{category}}</v-chip>
+        </v-chip-group>
+      </v-card-text>
       <v-card v-for="(item, index) in filteredFoodItems()" :key="index" elevation="1" class="ma-3">
         <v-img
           @click="selectItem(index)"
@@ -82,6 +97,19 @@ export default {
       } else {
         this.quantity = 1;
         this.selectedItem = index;
+      }
+    },
+
+    selectCategories(category) {
+      if (this.selectedCategories.includes(category) === false) {
+        this.selectedCategories.push(category);
+      } else {
+        for (var i = 0; i < this.selectedCategories.length; i++) {
+          if (this.selectedCategories[i] === category) {
+            this.selectedCategories.splice(i, 1);
+            break;
+          }
+        }
       }
     },
 
