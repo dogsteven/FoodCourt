@@ -66,6 +66,7 @@
             color="orange"
             v-on="on"
             v-bind="attrs"
+            @click="purchase"
             :disabled="$store.state.carts.length === 0"
           >Online Payment</v-btn>
         </template>
@@ -75,10 +76,44 @@
 </template>
 
 <script>
+import http from '../../http'
 export default {
   methods: {
     getFoodItemIndexByID(id) {
-      return this.$store.state.foods.findIndex(item => item.id === id);
+      return this.$store.state.foods.findIndex(item => item.id === id)
+    },
+    purchase() {
+      console.log("PURCHASE!")
+      let data = {
+        customerID: this.$store.state.customer.id,
+        cartItems: this.$store.state.carts.map((item) => {
+          let index = this.$store.state.foods.findIndex(i => i.id === item.foodID)
+          let vendorID = this.$store.state.foods[index].vendorID
+          return {
+              foodItemID: item.foodID,
+              vendorID: vendorID,
+              quantity: item.quantity
+          }
+          })
+      }
+      let config = {
+          "Content-Type": "application/json"
+      }
+      http.server.post('/order', data, config).then((response) => {
+        console.log(data)
+        let resData = response.data
+        console.log(response)
+        if (resData.id != null) {
+          // order successfully
+          localStorage.setItem('orderID', resData.id)
+          console.log('success')
+        }
+        else {
+          // failed
+          localStorage.setItem('orderID', resData.id)
+          console.log('failed')
+        }
+      })
     }
   },
   data: () => ({
@@ -88,4 +123,5 @@ export default {
 </script>
 
 <style>
+
 </style>
