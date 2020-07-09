@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import http from '../../http'
+import http from "../../http";
 export default {
   created() {
     this.username = this.$store.state.customer.username;
@@ -24,7 +24,7 @@ export default {
     this.lastname = this.$store.state.customer.lastname;
     this.email = this.$store.state.customer.email;
   },
-   methods: {
+  methods: {
     updateProfile() {
       var dataBody = {
         password: this.password,
@@ -35,16 +35,30 @@ export default {
       let config = {
         "Content-Type": "application/json"
       };
-      http.server.put("/customer/" + this.$store.state.customer.username + "/" + this.$store.state.customer.password, dataBody, config).then(response => {
-        let data = response.data;
-        console.log(data)
-        if (data !== null) {
-          dataBody.id = data.id;
-          dataBody.registrationTokens = [];
-          localStorage.setItem("customer", JSON.stringify(dataBody));
-          this.$store.commit("setCustomer", dataBody);
-        }
-      });
+      http.server
+        .put(
+          "/customer/" +
+            this.$store.state.customer.username +
+            "/" +
+            this.$store.state.customer.password,
+          dataBody,
+          config
+        )
+        .then(response => {
+          if (response.data.status === true) {
+            var newInfo = {
+              id: this.$store.state.customer.id,
+              username: this.$store.state.customer.username,
+              password: this.password,
+              firstname: this.firstname,
+              lastname: this.lastname,
+              email: this.email,
+              registrationTokens: this.$store.state.customer.registrationTokens
+            };
+            localStorage.setItem("customer", JSON.stringify(newInfo));
+            this.$store.commit("setCustomer", newInfo);
+          }
+        });
     }
   },
   data: () => ({
