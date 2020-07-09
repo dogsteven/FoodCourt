@@ -202,7 +202,6 @@ export default {
           "Content-Type": "application/json"
         }
         http.server.post('/customer', dataBody, config).then((response) => {
-          console.log(response)
           let data = response.data
           if (data !== null) {
             dataBody.id = data.id
