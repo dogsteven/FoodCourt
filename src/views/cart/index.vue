@@ -145,26 +145,15 @@ export default {
       return this.$store.state.foods.findIndex(item => item.id === id)
     },
     purchase() {
-      console.log("PURCHASE!")
       let data = {
         customerID: this.$store.state.customer.id,
-        cartItems: this.$store.state.carts.map((item) => {
-          let index = this.$store.state.foods.findIndex(i => i.id === item.foodID)
-          let vendorID = this.$store.state.foods[index].vendorID
-          return {
-              foodItemID: item.foodID,
-              vendorID: vendorID,
-              quantity: item.quantity
-          }
-          })
+        cartItems : this.$store.state.carts
       }
       let config = {
           "Content-Type": "application/json"
       }
       http.server.post('/order', data, config).then((response) => {
-        console.log(data)
         let resData = response.data
-        console.log(response)
         if (resData.id != null) {
           // order successfully
           localStorage.setItem('orderID', resData.id)
@@ -172,8 +161,11 @@ export default {
         }
         else {
           // failed
-          localStorage.setItem('orderID', resData.id)
-          console.log('failed')
+          localStorage.setItem('error', resData.error)
+          localStorage.setItem('errorItems', resData.errorItems)
+          if (localStorage.getItem('error') == "Out of stock!") {
+            console.log(error)
+          }
         }
       })
     }
