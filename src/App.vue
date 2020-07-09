@@ -18,13 +18,14 @@
           </v-list-item-title>
         </v-list-item>
         <v-list-item
+          to='/order'
           color="orange"
         >
           <v-list-item-icon>
-            <v-icon>fas fa-bell</v-icon>
+            <v-icon>fas fa-clipboard</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Notifications
+            Orders
           </v-list-item-title>
         </v-list-item>
         <v-list-item
