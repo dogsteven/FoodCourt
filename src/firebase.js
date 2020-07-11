@@ -2,6 +2,8 @@ import firebase from 'firebase'
 import 'firebase/app'
 import 'firebase/auth'
 import 'firebase/messaging'
+import store from './store'
+import http from './http'
 
 var firebaseConfig = {
     apiKey: "AIzaSyDbIOTnGRqZ9I8qKD1CSLm7nrZ0iYKuoTM",
@@ -52,17 +54,26 @@ messaging.getToken().then((currentToken) => {
 });
 
 function sendTokenToServer(currentToken) {
-  if (!isTokenSentToServer()) {
-    console.log('Sending token to server...');
-    // TODO(developer): Send the current token to your server.
-    setTokenSentToServer(true);
-  } else {
-    console.log('Token already sent to server so won\'t send it again ' + currentToken + 'unless it changes');
+  if(typeof store.state.customer.id  !== "undefined"){
+    if (!isTokenSentToServer()) {
+      console.log('Sending token to server...');
+      http.server.get('/customer/'+ store.state.customer.id + '/newRegistrationToken/'+ currentToken).then(({response}) => {
+        console.log("why not do that? " + response)
+      })
+      // TODO(developer): Send the current token to your server.
+      setTokenSentToServer(true);
+    } else {
+      console.log('Token already sent to server so won\'t send it again ' + currentToken + 'unless it changes');
+    }
+  }
+  else{
+      setTimeout(sendTokenToServer, 250);
   }
 }
 
 function isTokenSentToServer() {
-  return window.localStorage.getItem('sentToServer') === '1';
+  return false
+  // return window.localStorage.getItem('sentToServer') === '1';
 }
 
 function setTokenSentToServer(sent) {

@@ -26,48 +26,16 @@ messaging.usePublicVapidKey('BPEuFU6kT_McSMSXLIIVr49BpQqXjHirLePjnEZbe4NG1Y_ySyH
 
 // [START refresh_token]
 // Callback fired if Instance ID token is updated.
-messaging.onTokenRefresh(() => {
-  messaging.getToken().then((refreshedToken) => {
-    console.log('Token refreshed.');
-    // Indicate that the new Instance ID token has not yet been sent to the
-    // app server.
-    setTokenSentToServer(false);
-    // Send Instance ID token to app server.
-    sendTokenToServer(refreshedToken);
-  }).catch((err) => {
-    console.log('Unable to retrieve refreshed token ', err);
-  });
-});
 
 messaging.onMessage((payload) => {
   console.log('Message received. ', payload);
   appendMessage(payload);
 });
 
-function sendTokenToServer(currentToken) {
-  if (!isTokenSentToServer()) {
-    console.log('Sending token' +currentToken +  'to server...');
-      
-    setTokenSentToServer(true);
-  } else {
-    console.log('Token already sent to server so won\'t send it again ' +
-        'unless it changes');
-  }
-
-}
-
-function isTokenSentToServer() {
-  return window.localStorage.getItem('sentToServer') === '1';
-}
-
-function setTokenSentToServer(sent) {
-  window.localStorage.setItem('sentToServer', sent ? '1' : '0');
-}
-
 // Add a message to the messages element.
 function appendMessage(payload) {
   const messagesElement = document.querySelector('#messages');
-  const dataHeaderELement = document.createElement('h5');
+  const dataHeaderELement = document.createElement('h1');
   const dataElement = document.createElement('pre');
   dataElement.style = 'overflow-x:hidden;';
   dataHeaderELement.textContent = 'Received message:';
