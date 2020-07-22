@@ -5,7 +5,7 @@
     </v-tabs>
 
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="item in items" :key="item">
+      <v-tab-item v-for="tabular in tabs" :key="tabular">
         <v-card
           v-for="(item, index) in displayOrderItems()"
           :key="index"
@@ -53,7 +53,7 @@ export default {
                   foodItem.quantity = vendorOrderItem.quantity;
                   foodItem.price =
                     parseInt(foodItem.quantity) * parseInt(foodItem.price);
-                  if (vendorOrder.state === "completed") {
+                  if (vendorOrderItem.state === "completed") {
                     this.doneOrder.push(foodItem);
                   } else {
                     this.trackingOrder.push(foodItem);
@@ -87,7 +87,7 @@ export default {
   data: () => ({
     tab: 0,
     selectedItem: null,
-    items: ["Tracking Order", "Done Order"],
+    tabs: ["Tracking Order", "Done Order"],
     trackingOrder: [],
     doneOrder: []
   })
