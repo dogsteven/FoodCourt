@@ -25,6 +25,8 @@
             <span></span>
           </v-card-title>
           <v-card-subtitle @click="selectItem(index)">Đơn giá: {{ item.price }} VND</v-card-subtitle>
+          <v-spacer>{{ item.quantity }}</v-spacer>
+          <span></span>
           <v-card-text>
             <v-expand-transition>
               <div v-if="selectedItem === index">{{ item.description }}</div>
@@ -38,7 +40,6 @@
 
 <script>
 import http from "../../http";
-import OrderView from './models/order-view'
 export default {
   created() {
     let customerID = this.$store.state.customer.id;
@@ -49,6 +50,9 @@ export default {
             for (let vendorOrderItem of vendorOrder.orderItem.cartItems) {
               for (let foodItem of this.$store.state.foods) {
                 if (vendorOrderItem.foodID === foodItem.id) {
+                  foodItem.quantity = vendorOrderItem.quantity;
+                  foodItem.price =
+                    parseInt(foodItem.quantity) * parseInt(foodItem.price);
                   if (vendorOrder.state === "completed") {
                     this.doneOrder.push(foodItem);
                   } else {
