@@ -10,7 +10,6 @@
           v-for="(item, index) in displayOrderItems()"
           :key="index"
           elevation="1"
-          class="ma-3"
         >
           <v-img
             @click="selectItem(index)"
@@ -21,15 +20,20 @@
           ></v-img>
           <v-card-title>
             <span @click="selectItem(index)">{{ item.name }}</span>
-            <v-spacer>{{ item.state }}</v-spacer>
-            <span></span>
+            <v-spacer></v-spacer>
+            <span>{{ item.description }}</span>
           </v-card-title>
           <v-card-subtitle @click="selectItem(index)">Đơn giá: {{ item.price }} VND</v-card-subtitle>
-          <v-spacer>{{ item.quantity }}</v-spacer>
-          <span></span>
           <v-card-text>
             <v-expand-transition>
-              <div v-if="selectedItem === index">{{ item.description }}</div>
+              <div v-if="selectedItem === index">
+                {{ item.description }}
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-card elevation="0"></v-card>
+                  <v-btn text color="orange" @click="addItemToCart(item.id)">View Detail</v-btn>
+                </v-card-actions>
+              </div>
             </v-expand-transition>
           </v-card-text>
         </v-card>
@@ -40,6 +44,8 @@
 
 <script>
 import http from "../../http";
+import FoodItem from "../../models/food-item";
+
 export default {
   created() {
     let customerID = this.$store.state.customer.id;
@@ -50,13 +56,23 @@ export default {
             for (let vendorOrderItem of vendorOrder.orderItem.cartItems) {
               for (let foodItem of this.$store.state.foods) {
                 if (vendorOrderItem.foodID === foodItem.id) {
-                  foodItem.quantity = vendorOrderItem.quantity;
-                  foodItem.price =
-                    parseInt(foodItem.quantity) * parseInt(foodItem.price);
+                  let orderItem = new FoodItem(
+                    foodItem.id,
+                    foodItem.vendorID,
+                    foodItem.name,
+                    parseInt(foodItem.price) *
+                      parseInt(vendorOrderItem.quantity),
+                    vendorOrderItem.quantity,
+                    foodItem.category, 
+                    vendorOrder.state, // descripsion
+                    foodItem.photo,
+                    foodItem.rating,
+                    foodItem.ratingTimes
+                  );
                   if (vendorOrderItem.state === "completed") {
-                    this.doneOrder.push(foodItem);
+                    this.doneOrder.push(orderItem);
                   } else {
-                    this.trackingOrder.push(foodItem);
+                    this.trackingOrder.push(orderItem);
                   }
                   break;
                 }
