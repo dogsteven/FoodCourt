@@ -1,45 +1,47 @@
 <template>
-  <v-card>
+  <v-container id="menu-container" fluid>
     <v-tabs v-model="tab" background-color="transparent" color="red" grow>
       <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
     </v-tabs>
-
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="tabular in tabs" :key="tabular">
-        <v-card
-          v-for="(item, index) in displayOrderItems()"
-          :key="index"
-          elevation="1"
-        >
-          <v-img
-            @click="selectItem(index)"
-            :src="item.photo"
-            :lazy-src="item.photo"
-            max-height="130"
-            class="align-end"
-          ></v-img>
-          <v-card-title>
-            <span @click="selectItem(index)">{{ item.name }}</span>
-            <v-spacer></v-spacer>
-            <span>{{ item.description }}</span>
-          </v-card-title>
-          <v-card-subtitle @click="selectItem(index)">Đơn giá: {{ item.price }} VND</v-card-subtitle>
-          <v-card-text>
-            <v-expand-transition>
-              <div v-if="selectedItem === index">
-                {{ item.description }}
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-card elevation="0"></v-card>
-                  <v-btn text color="orange" @click="addItemToCart(item.id)">View Detail</v-btn>
-                </v-card-actions>
-              </div>
-            </v-expand-transition>
-          </v-card-text>
+      <v-tab-item v-for="item in items" :key="item">
+        <v-card max-width="700" class="mx-auto mt-1" elevation="0">
+          <v-card
+            v-for="(item, index) in displayOrderItems()"
+            :key="index"
+            elevation="1"
+            class="ma-3"
+          >
+            <v-img
+              @click="selectItem(index)"
+              :src="item.photo"
+              :lazy-src="item.photo"
+              max-height="130"
+              class="align-end"
+            ></v-img>
+            <v-card-title>
+              <span @click="selectItem(index)">{{ item.name }}</span>
+              <v-spacer></v-spacer>
+              <span v-show="tab === 0" class="text-uppercase">{{ item.description }}</span>
+              <v-rating
+                v-show="tab === 1"
+                dark
+                color="orange"
+                background-color="orange"
+                small
+                half-increments
+                v-model="item.rating"
+              ></v-rating>
+            </v-card-title>
+            <v-card-subtitle @click="selectItem(index)">
+              Đơn giá: {{ item.price }} VND
+              <v-spacer>Số lượng: {{ item.quantity }}</v-spacer>
+            </v-card-subtitle>
+          </v-card>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -49,7 +51,7 @@ import FoodItem from "../../models/food-item";
 export default {
   created() {
     let customerID = this.$store.state.customer.id;
-    http.server.get("/order/customer/" + customerID).then(response => {
+    http.server.get("/order/customer/" + customerID).then((response) => {
       if (response.data.error !== "null") {
         for (let order of response.data.body) {
           for (let vendorOrder of order.info) {
@@ -63,7 +65,7 @@ export default {
                     parseInt(foodItem.price) *
                       parseInt(vendorOrderItem.quantity),
                     vendorOrderItem.quantity,
-                    foodItem.category, 
+                    foodItem.category,
                     vendorOrder.state, // descripsion
                     foodItem.photo,
                     foodItem.rating,
@@ -88,7 +90,6 @@ export default {
       if (this.selectedItem === index) {
         this.selectedItem = null;
       } else {
-        this.quantity = 1;
         this.selectedItem = index;
       }
     },
@@ -98,14 +99,14 @@ export default {
       } else {
         return this.doneOrder;
       }
-    }
+    },
   },
   data: () => ({
     tab: 0,
     selectedItem: null,
-    tabs: ["Tracking Order", "Done Order"],
+    items: ["Tracking Order", "Done Order"],
     trackingOrder: [],
-    doneOrder: []
-  })
+    doneOrder: [],
+  }),
 };
 </script>

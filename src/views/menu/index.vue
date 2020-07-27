@@ -4,7 +4,11 @@
       <v-card-text>
         <v-toolbar flat color="transparent">
           <v-text-field
-            @input="value => { searchName = value }" append-icon="mdi-magnify" label="Find a food" single-line></v-text-field>
+            @input="value => { searchName = value }"
+            append-icon="mdi-magnify"
+            label="Find a food"
+            single-line
+          ></v-text-field>
         </v-toolbar>
 
         <v-chip-group column multiple>
@@ -80,7 +84,7 @@ export default {
     addItemToCart(foodID) {
       let quantity = this.quantity;
       let existIndex = this.$store.state.carts.findIndex(
-        cart => cart.foodID === foodID
+        (cart) => cart.foodID === foodID
       );
       if (existIndex === -1) {
         let newCartItem = new CartItem(foodID, quantity);
@@ -88,7 +92,7 @@ export default {
       } else
         this.$store.commit("increaseCartItemQuantity", {
           index: existIndex,
-          amount: quantity
+          amount: quantity,
         });
     },
 
@@ -116,12 +120,12 @@ export default {
 
     filteredFoodItems() {
       return this.$store.state.foods
-        .filter(item => {
+        .filter((item) => {
           for (let category of this.selectedCategories)
             if (item.categories.includes(category) === false) return false;
           return true;
         })
-        .filter(item => {
+        .filter((item) => {
           var iter = 0;
           for (let c of item.name.toLowerCase()) {
             if (c === this.searchName.toLowerCase()[iter]) iter += 1;
@@ -129,7 +133,7 @@ export default {
           }
           return false;
         });
-    }
+    },
   },
 
   data: () => ({
@@ -137,8 +141,8 @@ export default {
     quantity: 1,
     selectedCategories: [],
     categories: [],
-    searchName: ""
-  })
+    searchName: "",
+  }),
 };
 </script>
 
