@@ -12,15 +12,9 @@
             elevation="1"
             class="ma-3"
           >
-            <v-img
-              @click="selectItem(index)"
-              :src="item.photo"
-              :lazy-src="item.photo"
-              max-height="130"
-              class="align-end"
-            ></v-img>
+            <v-img :src="item.photo" :lazy-src="item.photo" max-height="130" class="align-end"></v-img>
             <v-card-title>
-              <span @click="selectItem(index)">{{ item.name }}</span>
+              <span>{{ item.name }}</span>
               <v-spacer></v-spacer>
               <span v-show="tab === 0" class="text-uppercase">{{ item.description }}</span>
               <v-rating
@@ -33,7 +27,7 @@
                 v-model="item.rating"
               ></v-rating>
             </v-card-title>
-            <v-card-subtitle @click="selectItem(index)">
+            <v-card-subtitle>
               Đơn giá: {{ item.price }} VND
               <v-spacer>Số lượng: {{ item.quantity }}</v-spacer>
             </v-card-subtitle>
@@ -71,7 +65,10 @@ export default {
                     foodItem.rating,
                     foodItem.ratingTimes
                   );
-                  if (vendorOrderItem.state === "completed") {
+                  if (
+                    vendorOrder.state == "completed" ||
+                    vendorOrder.state == "taked"
+                  ) {
                     this.doneOrder.push(orderItem);
                   } else {
                     this.trackingOrder.push(orderItem);
@@ -86,13 +83,13 @@ export default {
     });
   },
   methods: {
-    selectItem(index) {
-      if (this.selectedItem === index) {
-        this.selectedItem = null;
-      } else {
-        this.selectedItem = index;
-      }
-    },
+    // selectItem(index) {
+    //   if (this.selectedItem === index) {
+    //     this.selectedItem = null;
+    //   } else {
+    //     this.selectedItem = index;
+    //   }
+    // },
     displayOrderItems() {
       if (this.tab === 0) {
         return this.trackingOrder;
