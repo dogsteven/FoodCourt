@@ -1,6 +1,6 @@
 <template>
   <v-container id="menu-container" fluid>
-    <v-tabs v-model="tab" background-color="transparent" color="red" grow>
+    <v-tabs v-model="tab" background-color="transparent" color="#ff6e40" grow>
       <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
@@ -25,11 +25,12 @@
                 small
                 half-increments
                 v-model="item.rating"
+                @input="addRating($event, item.id)"
               ></v-rating>
             </v-card-title>
             <v-card-subtitle>
               Đơn giá: {{ item.price }} VND
-              <v-spacer>Số lượng: {{ item.quantity }}</v-spacer>
+              <v-spacer v-show="tab ===0">Số lượng: {{ item.quantity }}</v-spacer>
             </v-card-subtitle>
           </v-card>
         </v-card>
@@ -65,14 +66,36 @@ export default {
                     foodItem.rating,
                     foodItem.ratingTimes
                   );
-                  if (
-                    vendorOrder.state == "completed" ||
-                    vendorOrder.state == "taked"
-                  ) {
-                    this.doneOrder.push(orderItem);
-                  } else {
-                    this.trackingOrder.push(orderItem);
-                  }
+                  this.trackingOrder.push(orderItem);
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+    http.server.get("/order/taked/customer/" + customerID).then((response) => {
+      if (response.data.error !== "null") {
+        for (let order of response.data.body) {
+          for (let vendorOrder of order.info) {
+            for (let vendorOrderItem of vendorOrder.orderItem.cartItems) {
+              for (let foodItem of this.$store.state.foods) {
+                if (vendorOrderItem.foodID === foodItem.id) {
+                  let orderItem = new FoodItem(
+                    foodItem.id,
+                    foodItem.vendorID,
+                    foodItem.name,
+                    parseInt(foodItem.price) *
+                      parseInt(vendorOrderItem.quantity),
+                    vendorOrderItem.quantity,
+                    foodItem.category,
+                    vendorOrder.state, // descripsion
+                    foodItem.photo,
+                    foodItem.rating,
+                    foodItem.ratingTimes
+                  );
+                  this.doneOrder.push(orderItem);
                   break;
                 }
               }
@@ -83,19 +106,21 @@ export default {
     });
   },
   methods: {
-    // selectItem(index) {
-    //   if (this.selectedItem === index) {
-    //     this.selectedItem = null;
-    //   } else {
-    //     this.selectedItem = index;
-    //   }
-    // },
     displayOrderItems() {
       if (this.tab === 0) {
         return this.trackingOrder;
       } else {
         return this.doneOrder;
       }
+    },
+    addRating(value, id) {
+      let customerID = this.$store.state.customer.id;
+      http.server.get("/rating/" + customerID + "/" + id).then((response) => {
+        if (response.data.exist === false) {
+          http.server
+            .post("/rating/" + customerID + "/" + id + "/" + value)
+        }
+      });
     },
   },
   data: () => ({
