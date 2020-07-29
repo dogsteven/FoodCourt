@@ -30,7 +30,11 @@
             </v-card-title>
             <v-card-subtitle>
               Đơn giá: {{ item.price }} VND
-              <v-spacer v-show="tab ===0">Số lượng: {{ item.quantity }}</v-spacer>
+              <v-spacer v-show="tab === 0">Số lượng: {{ item.quantity }}</v-spacer>
+              <v-spacer
+                v-for="(vendor, index) in returnVendorList()"
+                :key="index"
+              >{{ vendor.id == item.vendorID ? "Nơi bán: " + vendor.name : null}}</v-spacer>
             </v-card-subtitle>
           </v-card>
         </v-card>
@@ -46,6 +50,11 @@ import FoodItem from "../../models/food-item";
 export default {
   created() {
     let customerID = this.$store.state.customer.id;
+    http.server.get("/vendor").then((response) => {
+      for (let vendor of response.data) {
+        this.vendorList.push(vendor);
+      }
+    });
     http.server.get("/order/customer/" + customerID).then((response) => {
       if (response.data.error !== "null") {
         for (let order of response.data.body) {
@@ -113,12 +122,14 @@ export default {
         return this.doneOrder;
       }
     },
+    returnVendorList() {
+      return this.vendorList;
+    },
     addRating(value, id) {
       let customerID = this.$store.state.customer.id;
       http.server.get("/rating/" + customerID + "/" + id).then((response) => {
         if (response.data.exist === false) {
-          http.server
-            .post("/rating/" + customerID + "/" + id + "/" + value)
+          http.server.post("/rating/" + customerID + "/" + id + "/" + value);
         }
       });
     },
@@ -129,6 +140,7 @@ export default {
     items: ["Tracking Order", "Done Order"],
     trackingOrder: [],
     doneOrder: [],
+    vendorList: [],
   }),
 };
 </script>
