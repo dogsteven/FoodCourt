@@ -95,14 +95,14 @@ export default {
         if (resData.id != null) {
           // order successfully
           localStorage.setItem('orderID', resData.id)
-          console.log('success')
+          console.log(resData.id)
         }
         else {
           // failed
           localStorage.setItem('error', resData.error)
           localStorage.setItem('errorItems', resData.errorItems)
           if (localStorage.getItem('error') == "Out of stock!") {
-            console.log(error)
+            console.log(localStorage.error)
           }
         }
       })
