@@ -4,6 +4,7 @@
       <v-card-text>
         <v-toolbar flat color="transparent">
           <v-text-field
+            color="#7d4427"
             @input="value => { searchName = value }"
             append-icon="mdi-magnify"
             label="Tìm món ăn"
