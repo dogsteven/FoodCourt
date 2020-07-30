@@ -12,11 +12,11 @@
           <v-card-title>
             <v-tabs color="orange" fixed-tabs v-model="tab">
               <v-tab>
-                Login
+                Đăng nhập
                 <v-spacer></v-spacer>
               </v-tab>
               <v-tab>
-                <v-spacer></v-spacer>Register
+                <v-spacer></v-spacer>Đăng ký
               </v-tab>
             </v-tabs>
           </v-card-title>
@@ -26,14 +26,14 @@
               color="orange"
               v-model="username"
               solo
-              label="Username"
+              label="Tên đăng nhập"
               prepend-inner-icon="mdi-account"
             ></v-text-field>
             <v-text-field
               color="orange"
               v-model="password"
               solo
-              label="Password"
+              label="Mật khẩu"
               type="password"
               :rules="[requireSixCharacters]"
               prepend-inner-icon="mdi-lock"
@@ -44,7 +44,7 @@
                   color="orange"
                   v-model="repassword"
                   solo
-                  label="Confirm password"
+                  label="Xác nhận mật khẩu"
                   type="password"
                   :rules="[requireSixCharacters, isEqualToPassword]"
                   prepend-inner-icon="mdi-lock"
@@ -53,14 +53,14 @@
                   color="orange"
                   v-model="firstname"
                   solo
-                  label="First name"
+                  label="Tên"
                   prepend-inner-icon="mdi-account"
                 ></v-text-field>
                 <v-text-field
                   color="orange"
                   v-model="lastname"
                   solo
-                  label="Last name"
+                  label="Họ"
                   prepend-inner-icon="mdi-account"
                 ></v-text-field>
                 <v-text-field
@@ -82,13 +82,13 @@
               width="100"
               dark
               @click="SignInOrSignUp"
-            >{{ tab == 0 ? "Sign in" : "Sign up" }}</v-btn>
+            >{{ tab == 0 ? "Đăng nhập" : "Đăng ký" }}</v-btn>
           </v-card-actions>
         </v-card>
         <v-snackbar v-model="isSignInUpFailed" timeout="2000">
           {{ message }}
           <template v-slot:action="{ attrs }">
-            <v-btn color="red" text v-bind="attrs" @click="isSignInFailed = false">Close</v-btn>
+            <v-btn color="red" text v-bind="attrs" @click="isSignInFailed = false">Đóng</v-btn>
           </template>
         </v-snackbar>
       </v-flex>
@@ -124,20 +124,20 @@ export default {
       let email = this.email;
       if (this.tab === 0) {
         if (username.length === 0 || password.length === 0) {
-          this.message = "Please enter your username and password!";
+          this.message = "Hãy điền tên đăng nhập và mật khẩu";
           this.isSignInUpFailed = true;
           return;
         }
         http.server
           .get("/customer/" + username + "/" + password)
-          .then(response => {
+          .then((response) => {
             let data = response.data;
             if (data !== null) {
               localStorage.setItem("customer", JSON.stringify(data));
               this.$store.commit("setCustomer", data);
               this.$router.go("/menu");
             } else {
-              this.message = "Wrong username or password!";
+              this.message = "Sai tên đăng nhập hoặc mật khẩu";
               this.isSignInUpFailed = true;
             }
           });
@@ -165,12 +165,12 @@ export default {
           password: password,
           firstname: firstname,
           lastname: lastname,
-          email: email
+          email: email,
         };
         let config = {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         };
-        http.server.post("/customer", dataBody, config).then(response => {
+        http.server.post("/customer", dataBody, config).then((response) => {
           let data = response.data;
           if (data !== null) {
             dataBody.id = data.id;
@@ -184,7 +184,7 @@ export default {
           }
         });
       }
-    }
+    },
   },
   data: () => ({
     username: "",
@@ -195,8 +195,8 @@ export default {
     email: "",
     tab: 0,
     isSignInUpFailed: false,
-    message: ""
-  })
+    message: "",
+  }),
 };
 </script>
 

@@ -14,7 +14,7 @@
             <v-icon>fas fa-hamburger</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Menu
+            Thực đơn
           </v-list-item-title>
         </v-list-item>
         <v-list-item
@@ -25,7 +25,7 @@
             <v-icon>fas fa-clipboard</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Orders
+            Đơn hàng
           </v-list-item-title>
         </v-list-item>
         <v-list-item
@@ -36,7 +36,7 @@
             <v-icon>fas fa-user-alt</v-icon>
             </v-list-item-icon>
           <v-list-item-title>
-            Profile
+            Thông tin
           </v-list-item-title>
         </v-list-item>
         <v-list-item
@@ -46,7 +46,7 @@
             <v-icon>fas fa-sign-out-alt</v-icon>
           </v-list-item-icon>
           <v-list-item-title>
-            Sign out
+            Đăng xuất
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -65,7 +65,7 @@
 
       <v-spacer></v-spacer>
 
-        <v-toolbar-title>{{ $route.name === "Sign In" ? "" : $route.name }}</v-toolbar-title>
+        <v-toolbar-title>{{ $route.name === "Đăng nhập" ? "" : $route.name }}</v-toolbar-title>
 
       <v-spacer></v-spacer>
       

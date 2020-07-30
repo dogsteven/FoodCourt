@@ -16,7 +16,7 @@
             <v-card-title>
               <span>{{ item.name }}</span>
               <v-spacer></v-spacer>
-              <span v-show="tab === 0" class="text-uppercase">{{ item.description }}</span>
+              <span v-show="tab === 0">{{ translate(item.description) }}</span>
               <v-rating
                 v-show="tab === 1"
                 dark
@@ -46,7 +46,12 @@
 <script>
 import http from "../../http";
 import FoodItem from "../../models/food-item";
-
+let adaptor = {
+  unpaid: "Chưa thanh toán",
+  waiting: "Đang chờ",
+  cooking: "Đang xử lí",
+  completed: "Đã hoàn thành",
+};
 export default {
   created() {
     let customerID = this.$store.state.customer.id;
@@ -133,11 +138,15 @@ export default {
         }
       });
     },
+    translate(state) {
+      console.log(state);
+      return adaptor[state];
+    },
   },
   data: () => ({
     tab: 0,
     selectedItem: null,
-    items: ["Tracking Order", "Done Order"],
+    items: ["Theo dõi", "Hoàn thành"],
     trackingOrder: [],
     doneOrder: [],
     vendorList: [],
