@@ -87,7 +87,7 @@ function showToken(currentToken) {
 // - subscribe/unsubscribe the token from topics
 function sendTokenToServer(currentToken) {
   if (!isTokenSentToServer()) {
-    http.server.get('/customer/:id/newRegistrationToken/' + currentToken).then(({ data }) => {
+    http.server.get('/customer/'+store.state.customer.id+'/newRegistrationToken/' + currentToken).then(({ data }) => {
       console.log('sent success: ' + data)
     })
     // TODO(developer): Send the current token to your server.
