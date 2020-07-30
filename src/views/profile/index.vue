@@ -1,14 +1,14 @@
 <template>
   <v-container>
     <v-card max-width="700" class="mx-auto mb-2">
-      <v-card-title>{{ username }}'s profile</v-card-title>
+      <v-card-title>Tài khoản của {{ username }} </v-card-title>
       <v-card-text>
-        <v-text-field v-model="password" color="orange" label="Password" type="password"></v-text-field>
-        <v-text-field v-model="firstname" color="orange" label="First name"></v-text-field>
-        <v-text-field v-model="lastname" color="orange" label="Last name"></v-text-field>
+        <v-text-field v-model="password" color="orange" label="Mật khẩu" type="password"></v-text-field>
+        <v-text-field v-model="firstname" color="orange" label="Tên"></v-text-field>
+        <v-text-field v-model="lastname" color="orange" label="Họ"></v-text-field>
         <v-text-field v-model="email" color="orange" label="Email"></v-text-field>
 
-        <v-btn block text color="green" @click="updateProfile()">Save</v-btn>
+        <v-btn block text color="green" @click="updateProfile()">Lưu</v-btn>
       </v-card-text>
     </v-card>
   </v-container>
