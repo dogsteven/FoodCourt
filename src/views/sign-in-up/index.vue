@@ -5,7 +5,7 @@
         <v-card class="mx-auto" max-width="500" elevation="2">
           <v-img
             max-height="200"
-            src="../../assets/sign-in-wallpaper.jpg"
+            src="../../assets/foodline.png"
             class="align-end white--text"
           ></v-img>
 
