@@ -8,7 +8,7 @@
       <v-list>
         <v-list-item
           to='/menu'
-          color="orange"
+          color="#a2c523"
         >
           <v-list-item-icon>
             <v-icon>fas fa-hamburger</v-icon>
@@ -19,7 +19,7 @@
         </v-list-item>
         <v-list-item
           to='/order'
-          color="orange"
+          color="#a2c523"
         >
           <v-list-item-icon>
             <v-icon>fas fa-clipboard</v-icon>
@@ -30,7 +30,7 @@
         </v-list-item>
         <v-list-item
           to='/profile'
-          color="orange"
+          color="#a2c523"
         >
           <v-list-item-icon>
             <v-icon>fas fa-user-alt</v-icon>
@@ -54,7 +54,7 @@
 
     <v-app-bar
       app
-      color="orange"
+      color="#a2c523"
       dark
       v-if="$store.state.customer.id !== null"
     >

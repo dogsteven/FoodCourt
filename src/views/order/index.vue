@@ -1,6 +1,6 @@
 <template>
   <v-container id="menu-container" fluid>
-    <v-tabs v-model="tab" background-color="transparent" color="#ff6e40" grow>
+    <v-tabs v-model="tab" color="#7d4427" grow>
       <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">

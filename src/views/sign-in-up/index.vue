@@ -10,7 +10,7 @@
           ></v-img>
 
           <v-card-title>
-            <v-tabs color="orange" fixed-tabs v-model="tab">
+            <v-tabs color="#7d4427" fixed-tabs v-model="tab">
               <v-tab>
                 Đăng nhập
                 <v-spacer></v-spacer>
@@ -23,14 +23,14 @@
 
           <v-card-text class="pa-5">
             <v-text-field
-              color="orange"
+              color="#7d4427"
               v-model="username"
               solo
               label="Tên đăng nhập"
               prepend-inner-icon="mdi-account"
             ></v-text-field>
             <v-text-field
-              color="orange"
+              color="#7d4427"
               v-model="password"
               solo
               label="Mật khẩu"
@@ -41,7 +41,7 @@
             <v-expand-transition>
               <div v-show="tab === 1">
                 <v-text-field
-                  color="orange"
+                  color="#7d4427"
                   v-model="repassword"
                   solo
                   label="Xác nhận mật khẩu"
@@ -50,21 +50,21 @@
                   prepend-inner-icon="mdi-lock"
                 ></v-text-field>
                 <v-text-field
-                  color="orange"
+                  color="#7d4427"
                   v-model="firstname"
                   solo
                   label="Tên"
                   prepend-inner-icon="mdi-account"
                 ></v-text-field>
                 <v-text-field
-                  color="orange"
+                  color="#7d4427"
                   v-model="lastname"
                   solo
                   label="Họ"
                   prepend-inner-icon="mdi-account"
                 ></v-text-field>
                 <v-text-field
-                  color="orange"
+                  color="#7d4427"
                   v-model="email"
                   solo
                   label="Email"
@@ -78,7 +78,7 @@
           <v-card-actions>
             <v-btn
               block
-              color="orange"
+              color="#7d4427"
               width="100"
               dark
               @click="SignInOrSignUp"
