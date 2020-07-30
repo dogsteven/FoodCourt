@@ -8,27 +8,27 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/sign-in-up',
-    name: 'Sign In',
+    name: 'Đăng nhập',
     component: SignInUp
   },
   {
     path: '/menu',
-    name: 'Menu',
+    name: 'Thực đơn',
     component: Menu
   },
   {
     path: '/cart',
-    name: 'Cart',
+    name: 'Giỏ hàng',
     component: () => import(/* webpackChunkName: "cart-view" */ "../views/cart")
   },
   {
     path: '/order',
-    name: 'Orders',
+    name: 'Đơn hàng',
     component: () => import(/* webpackChunkName: "profile-view" */ "../views/order")
   },
   {
     path: '/profile',
-    name: 'Profile',
+    name: 'Thông tin',
     component: () => import(/* webpackChunkName: "profile-view" */ "../views/profile")
   },
   {

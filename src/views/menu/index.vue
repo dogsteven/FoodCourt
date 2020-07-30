@@ -6,7 +6,7 @@
           <v-text-field
             @input="value => { searchName = value }"
             append-icon="mdi-magnify"
-            label="Find a food"
+            label="Tìm món ăn"
             single-line
           ></v-text-field>
         </v-toolbar>
@@ -36,7 +36,7 @@
             dark
             color="orange"
             background-color="orange"
-            small
+            x-small
             half-increments
             v-model="item.rating"
           ></v-rating>
