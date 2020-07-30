@@ -40,23 +40,25 @@
       <v-dialog v-model="isShowPaymentDialog" max-width="500">
         <v-card>
           <v-card-title>
-            Online Payment
             <v-spacer></v-spacer>
-            <v-btn right absolute icon @click="isShowPaymentDialog = false">
+            <v-btn right absolute icon @click="toMenu">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-card-title>
-          <v-card-subtitle>Enter your FakeMomo's account</v-card-subtitle>
           <v-card-text>
             <v-row>
-              <v-col>
-                <v-text-field label="Username" color="orange"></v-text-field>
-              </v-col>
+              <v-icon class="mx-auto" color="green" size="60"> mdi-check-circle-outline</v-icon>
+            </v-row>
+            <v-row>
+              <v-card-text class="text-center">
+                Đơn hàng của bạn đã thanh toán thành công <br>
+                Chuẩn bị chuyển về thực đơn
+              </v-card-text>
+              <v-card-text class="text-center">
+                
+              </v-card-text>
             </v-row>
           </v-card-text>
-          <v-card-actions>
-            <v-btn text block color="green">Make payment</v-btn>
-          </v-card-actions>
         </v-card>
 
         <template v-slot:activator="{ on, attrs }">
@@ -106,6 +108,18 @@ export default {
           }
         }
       })
+      // reset cart after purchasing
+      for (var i = 0; i < this.$store.state.carts.length; i++) {
+          this.$store.commit('removeItemFromCart', i)
+      }
+      this.isShowPaymentDialog = false
+      setTimeout( () => {
+        this.$router.replace("/menu");
+      }, 2500); 
+    },
+    toMenu() {
+      this.isShowPaymentDialog = false
+      this.$router.replace("/menu");
     }
   },
   data: () => ({
