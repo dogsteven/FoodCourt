@@ -103,6 +103,25 @@ export default {
         this.quantity = 1;
         this.selectedItem = index;
       }
+    }, 
+    filterByChip (food) {
+      if (this.filter == []) {
+        return true;
+      }
+      let itemFilter = []
+      
+      this.filter.forEach(element => {
+          itemFilter.push(this.categories[element])
+        }
+      );
+
+      let test = (Object.values(food.categories).slice(-1)).filter(function(item) {
+        console.log(typeof item)
+        // if (item === null) return false;
+        // return !itemFilter.includes(item); 
+      }) 
+      console.log(test)
+      return true 
     },
 
     selectCategories(category) {
