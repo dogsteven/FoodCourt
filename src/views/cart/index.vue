@@ -31,7 +31,7 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-          <v-btn text color="red" @click="$store.commit('removeItemFromCart', index)">Remove</v-btn>
+          <v-btn text color="red" @click="$store.commit('removeItemFromCart', index)">Xóa</v-btn>
         </v-card-actions>
       </v-card>
     </v-card>
@@ -70,7 +70,7 @@
             v-bind="attrs"
             @click="purchase"
             :disabled="$store.state.carts.length === 0"
-          >Online Payment</v-btn>
+          >Thanh toán trực tuyến</v-btn>
         </template>
       </v-dialog>
     </v-footer>
@@ -115,7 +115,7 @@ export default {
       this.isShowPaymentDialog = false
       setTimeout( () => {
         this.$router.replace("/menu");
-      }, 2500); 
+      }, 1000000); 
     },
     toMenu() {
       this.isShowPaymentDialog = false

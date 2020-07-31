@@ -60,7 +60,7 @@
                     </v-btn>
                   </v-card-actions>
                 </v-card>
-                <v-btn text color="#7d4427" @click="addItemToCart(item.id)">Add to cart</v-btn>
+                <v-btn text color="#7d4427" @click="addItemToCart(item.id)">Thêm vào giỏ</v-btn>
               </v-card-actions>
             </div>
           </v-expand-transition>

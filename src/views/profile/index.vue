@@ -3,12 +3,12 @@
     <v-card max-width="700" class="mx-auto mb-2">
       <v-card-title>Tài khoản của {{ username }} </v-card-title>
       <v-card-text>
-        <v-text-field v-model="password" color="orange" label="Mật khẩu" type="password"></v-text-field>
-        <v-text-field v-model="firstname" color="orange" label="Tên"></v-text-field>
-        <v-text-field v-model="lastname" color="orange" label="Họ"></v-text-field>
-        <v-text-field v-model="email" color="orange" label="Email"></v-text-field>
+        <v-text-field v-model="password" color="#7d4427" label="Mật khẩu" type="password"></v-text-field>
+        <v-text-field v-model="firstname" color="#7d4427" label="Tên"></v-text-field>
+        <v-text-field v-model="lastname" color="#7d4427" label="Họ"></v-text-field>
+        <v-text-field v-model="email" color="#7d4427" label="Email"></v-text-field>
 
-        <v-btn block text color="green" @click="updateProfile()">Lưu</v-btn>
+        <v-btn block text color="#a2c523" @click="updateProfile()">Lưu</v-btn>
       </v-card-text>
     </v-card>
   </v-container>
