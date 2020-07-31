@@ -7,8 +7,11 @@ Hệ thống này hi vọng có thể tiết kiệm tối đa thời gian đặt
 
 ### Project này bao gồm tổng cộng 4 phần mềm:
 * [Server](github.com/dogsteven/FoodCourtSystem)
+
 * [User application](github.com/dogsteven/FoodCourt)
+
 * [Phần mềm quản lý các các của hàng trong hệ thống](github.com/dogsteven/food-court-manager)
+
 * [Phần mềm quản lý tại của hàng](github.com/dogsteven/food-court-management)
 ### Đây là phần mềm dành cho user
 > Hãy làm theo các bước sau để cài đặt 
