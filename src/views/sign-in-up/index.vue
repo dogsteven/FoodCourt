@@ -156,7 +156,7 @@ export default {
         if (this.isEmail(email) === false || email.length === 0) valid = false;
         if (this.requireSixCharacters(password) === false) valid = false;
         if (valid === false) {
-          this.message = "Wrong input! Try again!";
+          this.message = "Sai thông tin! Xin vui lòng nhập lại!";
           this.isSignInUpFailed = true;
           return;
         }
