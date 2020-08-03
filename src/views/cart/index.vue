@@ -115,7 +115,7 @@ export default {
       this.isShowPaymentDialog = false
       setTimeout( () => {
         this.$router.replace("/menu");
-      }, 1000000); 
+      }, 2000); 
     },
     toMenu() {
       this.isShowPaymentDialog = false

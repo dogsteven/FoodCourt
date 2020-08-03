@@ -4,7 +4,6 @@
       <v-card-text>
         <v-toolbar flat color="transparent">
           <v-text-field
-            color="#7d4427"
             @input="value => { searchName = value }"
             append-icon="mdi-magnify"
             label="Tìm món ăn"
@@ -60,7 +59,7 @@
                     </v-btn>
                   </v-card-actions>
                 </v-card>
-                <v-btn text color="#7d4427" @click="addItemToCart(item.id)">Thêm vào giỏ</v-btn>
+                <v-btn text color="orange" @click="addItemToCart(item.id)">Add to cart</v-btn>
               </v-card-actions>
             </div>
           </v-expand-transition>
@@ -104,6 +103,25 @@ export default {
         this.quantity = 1;
         this.selectedItem = index;
       }
+    }, 
+    filterByChip (food) {
+      if (this.filter == []) {
+        return true;
+      }
+      let itemFilter = []
+      
+      this.filter.forEach(element => {
+          itemFilter.push(this.categories[element])
+        }
+      );
+
+      let test = (Object.values(food.categories).slice(-1)).filter(function(item) {
+        console.log(typeof item)
+        // if (item === null) return false;
+        // return !itemFilter.includes(item); 
+      }) 
+      console.log(test)
+      return true 
     },
 
     selectCategories(category) {
