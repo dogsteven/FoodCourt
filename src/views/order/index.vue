@@ -133,7 +133,16 @@ export default {
       let customerID = this.$store.state.customer.id;
       http.server.get("/rating/" + customerID + "/" + id).then((response) => {
         if (response.data.exist === false) {
-          http.server.post("/rating/" + customerID + "/" + id + "/" + value);
+          http.server
+            .post("/rating/" + customerID + "/" + id + "/" + value)
+            .then((response) => {
+              for (let foodItem of this.$store.state.foods) {
+                if (foodItem.id == id) {
+                  foodItem.rating = response.data.newRatingScore;
+                  break;
+                }
+              }
+            });
         }
       });
     },

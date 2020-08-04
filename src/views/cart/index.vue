@@ -96,13 +96,12 @@ export default {
           // order successfully
           localStorage.setItem("orderID", resData.id);
           http.server.get("/manager/order/paid/" + resData.id);
-          for (var i = 0; i < this.$store.state.carts.length; i++) {
-            this.$store.commit("removeItemFromCart", i);
-          }
-          this.isShowPaymentDialog = false;
-          setTimeout(() => {
+          this.$store.state.carts.splice(0, this.$store.state.carts.length)
+
+          this.isShowPaymentDialog = false
+          setTimeout( () => {
             this.$router.replace("/menu");
-          }, 2500);
+          }, 2000);
         } else {
           // failed
           localStorage.setItem("error", resData.error);
