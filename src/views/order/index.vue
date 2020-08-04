@@ -47,7 +47,6 @@
 import http from "../../http";
 import FoodItem from "../../models/food-item";
 let adaptor = {
-  unpaid: "Chưa thanh toán",
   waiting: "Đang chờ",
   cooking: "Đang xử lí",
   completed: "Đã hoàn thành",

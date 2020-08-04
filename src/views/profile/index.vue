@@ -35,6 +35,7 @@ export default {
       let config = {
         "Content-Type": "application/json"
       };
+
       http.server
         .put(
           "/customer/" +

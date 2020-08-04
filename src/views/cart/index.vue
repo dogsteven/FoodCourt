@@ -98,6 +98,7 @@ export default {
           // order successfully
           localStorage.setItem('orderID', resData.id)
           console.log(resData.id)
+          
         }
         else {
           // failed
