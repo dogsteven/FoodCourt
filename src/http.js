@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let configuration = {
-        serverURL: "http://localhost/api"
+        serverURL: "http://192.168.1.104/api"
 }
 
 export default {
