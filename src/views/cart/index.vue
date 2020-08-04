@@ -96,6 +96,13 @@ export default {
           // order successfully
           localStorage.setItem("orderID", resData.id);
           http.server.get("/manager/order/paid/" + resData.id);
+          for (var i = 0; i < this.$store.state.carts.length; i++) {
+            this.$store.commit("removeItemFromCart", i);
+          }
+          this.isShowPaymentDialog = false;
+          setTimeout(() => {
+            this.$router.replace("/menu");
+          }, 2500);
         } else {
           // failed
           localStorage.setItem("error", resData.error);
@@ -105,14 +112,6 @@ export default {
           }
         }
       });
-      // // reset cart after purchasing
-      // for (var i = 0; i < this.$store.state.carts.length; i++) {
-      //   this.$store.commit("removeItemFromCart", i);
-      // }
-      // this.isShowPaymentDialog = false;
-      // setTimeout(() => {
-      //   this.$router.replace("/menu");
-      // }, 2000);                    
     },
     toMenu() {
       this.isShowPaymentDialog = false;
