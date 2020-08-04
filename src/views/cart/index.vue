@@ -99,7 +99,7 @@ export default {
           localStorage.setItem('orderID', resData.id)
           console.log(resData.id)
           for (var i = 0; i < this.$store.state.carts.length; i++) {
-            this.$store.commit('removeItemFromCart', i)
+            this.$store.commit('removeItemFromCart', 0)
           }
           this.isShowPaymentDialog = false
           setTimeout( () => {
