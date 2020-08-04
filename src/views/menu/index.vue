@@ -39,6 +39,7 @@
             x-small
             half-increments
             v-model="item.rating"
+            readonly
           ></v-rating>
         </v-card-title>
         <v-card-subtitle @click="selectItem(index)">Đơn giá: {{ item.price }} VND</v-card-subtitle>
