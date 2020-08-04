@@ -79,9 +79,11 @@ export default {
     http.server.get("/categories").then(({ data }) => {
       this.categories = data;
     })
+    messaging.usePublicVapidKey("BPEuFU6kT_McSMSXLIIVr49BpQqXjHirLePjnEZbe4NG1Y_ySyHAwdBLO3E4FPbsgy32WTHggnM56nnLuZyE3dM")
 
     messaging.getToken().then((token) => {
-      console.log('Token: ' + token)
+      console.log("test token: " + token)
+      console.log(this.$store.state.customer.registrationTokens)
       if (this.$store.state.customer.registrationTokens.includes(token) === false) {
         http.server.post('/customer/' + this.$store.state.customer.id + '/newRegistrationToken/' + token)
           .then(({ status }) => {
@@ -89,6 +91,16 @@ export default {
               this.$store.state.customer.registrationTokens.push(token)
           })
       }
+    })
+
+    messaging.onTokenRefresh(() => {
+      messaging.getToken().then((refreshedToken) => {
+        http.server.post('/customer/' + this.$store.state.customer.id + '/newRegistrationToken/' + refreshedToken)
+          .then(({ status }) => {
+            if (status !== false)
+              this.$store.state.customer.registrationTokens.push(refreshedToken)
+          })
+      })
     })
   },
 

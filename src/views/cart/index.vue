@@ -98,6 +98,13 @@ export default {
           // order successfully
           localStorage.setItem('orderID', resData.id)
           console.log(resData.id)
+          for (var i = 0; i < this.$store.state.carts.length; i++) {
+            this.$store.commit('removeItemFromCart', i)
+          }
+          this.isShowPaymentDialog = false
+          setTimeout( () => {
+            this.$router.replace("/menu");
+          }, 2500); 
         }
         else {
           // failed
@@ -108,14 +115,6 @@ export default {
           }
         }
       })
-      // reset cart after purchasing
-      for (var i = 0; i < this.$store.state.carts.length; i++) {
-          this.$store.commit('removeItemFromCart', i)
-      }
-      this.isShowPaymentDialog = false
-      setTimeout( () => {
-        this.$router.replace("/menu");
-      }, 2500); 
     },
     toMenu() {
       this.isShowPaymentDialog = false

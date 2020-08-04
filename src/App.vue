@@ -116,9 +116,14 @@ export default {
   created() {
     let customer = JSON.parse(localStorage.getItem('customer'))
     if (customer !== null)
-      if (('id' in customer) && ('username' in customer) && ('password' in customer) && ('firstname' in customer) && ('lastname' in customer) && ('email' in customer) && ('registrationTokens' in customer))
+      if (('id' in customer) && ('username' in customer) && ('password' in customer) && ('firstname' in customer) && ('lastname' in customer) && ('email' in customer) && ('registrationTokens' in customer)) {
         this.$store.commit('setCustomer', customer)
-      else {
+        http.server.get('/customer/' + customer.username + '/' + customer.password)
+          .then(({ data }) => data)
+          .then(({ registrationTokens }) => {
+            this.$store.state.customer.registrationTokens = registrationTokens
+          })
+      } else {
         localStorage.removeItem('customer')
         this.$router.go('/sign-in-up')
       }
