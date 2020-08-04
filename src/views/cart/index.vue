@@ -105,14 +105,14 @@ export default {
           }
         }
       });
-      // reset cart after purchasing
-      for (var i = 0; i < this.$store.state.carts.length; i++) {
-        this.$store.commit("removeItemFromCart", i);
-      }
-      this.isShowPaymentDialog = false;
-      setTimeout(() => {
-        this.$router.replace("/menu");
-      }, 2000);
+      // // reset cart after purchasing
+      // for (var i = 0; i < this.$store.state.carts.length; i++) {
+      //   this.$store.commit("removeItemFromCart", i);
+      // }
+      // this.isShowPaymentDialog = false;
+      // setTimeout(() => {
+      //   this.$router.replace("/menu");
+      // }, 2000);                    
     },
     toMenu() {
       this.isShowPaymentDialog = false;
